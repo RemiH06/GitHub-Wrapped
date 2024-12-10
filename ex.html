@@ -1,35 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Repos</title>
 </head>
+
 <body>
     <h1>Repositorios de GitHub</h1>
     <p id="repoCount">Cargando...</p>
+    <p id="mejorAmigo">Cargando...</p>
 
     <script type="module">
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+        let usuario = 'HectorH06' // Harcodeado para el ejemplo
 
         async function getRepoCount() {
             const octokit = new Octokit();
             try {
                 const response = await octokit.request('GET /users/{username}', {
-                    username: 'HectorH06'
+                    username: usuario
                 });
 
                 const repoCount = response.data.public_repos;
-                document.getElementById("repoCount").textContent = 
-                    `El usuario HectorH06 tiene ${repoCount} repositorios públicos.`;
+                document.getElementById("repoCount").textContent =
+                    `El usuario ${usuario} tiene ${repoCount} repositorios públicos.`;
             } catch (error) {
                 console.error(error);
-                document.getElementById("repoCount").textContent = 
+                document.getElementById("repoCount").textContent =
                     "Error al obtener la información.";
             }
         }
-
         getRepoCount();
+
+
+        async function getTopCollaborator() {
+            const octokit = new Octokit();
+            let collaborators = {};
+
+            try {
+                const repos = await octokit.request('GET /users/{username}/repos', {
+                    username: usuario,
+                    per_page: 100
+                });
+
+                for (let repo of repos.data) {
+                    const contributors = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
+                        owner: usuario,
+                        repo: repo.name
+                    });
+
+                    contributors.data.forEach(contributor => {
+                        if (contributor.login !== usuario) {
+                            collaborators[contributor.login] = (collaborators[contributor.login] || 0) + contributor.contributions;
+                        }
+                    });
+                }
+
+                const topCollaborator = Object.entries(collaborators).reduce((a, b) => a[1] > b[1] ? a : b, []);
+                console.log(`Mejor amigo: ${topCollaborator[0]} con ${topCollaborator[1]} contribuciones.`);
+                document.getElementById("mejorAmigo").textContent =
+                `Mejor amigo: ${topCollaborator[0]} con ${topCollaborator[1]} contribuciones.`;
+            } catch (error) {
+                console.error("Error al obtener colaborador:", error);
+                document.getElementById("mejorAmigo").textContent = `Error al obtener a tu mejor amigo`
+            }
+        }
+        getTopCollaborator();
+
     </script>
 </body>
+
 </html>
