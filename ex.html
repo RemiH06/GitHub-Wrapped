@@ -4,51 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Repos</title>
+    <title>GitHub Stats</title>
 </head>
 
 <body>
-    <h1>Repositorios de GitHub</h1>
-    <p id="repoCount">Cargando...</p>
-    <p id="mejorAmigo">Cargando...</p>
+    <h1>Estadísticas de GitHub</h1>
+    <p id="repoCount">Cargando repositorios...</p>
+    <p id="totalCommits">Cargando commits...</p>
+    <p id="followers">Cargando seguidores...</p>
+    <p id="following">Cargando seguidos...</p>
+    <p id="mejorAmigo">Cargando mejor amigo...</p>
+    <p id="topRepo">Cargando repo con más commits...</p>
+    <p id="topRepos">Cargando top 5 repos con más commits...</p>
+    <p id="busyDay">Cargando día con más trabajo...</p>
+    <p id="maxStreak">Cargando mayor racha activa...</p>
+    <p id="maxIdle">Cargando mayor racha inactiva...</p>
 
     <script type="module">
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-        let usuario = 'HectorH06' // Harcodeado para el ejemplo
+        const usuario = 'HectorH06';
+        const octokit = new Octokit();
 
         async function getRepoCount() {
-            const octokit = new Octokit();
             try {
-                const response = await octokit.request('GET /users/{username}', {
-                    username: usuario
-                });
-
-                const repoCount = response.data.public_repos;
-                document.getElementById("repoCount").textContent =
-                    `El usuario ${usuario} tiene ${repoCount} repositorios públicos.`;
+                const response = await octokit.request('GET /users/{username}', { username: usuario });
+                document.getElementById("repoCount").textContent = 
+                    `El usuario ${usuario} tiene ${response.data.public_repos} repos públicos.`;
             } catch (error) {
-                console.error(error);
-                document.getElementById("repoCount").textContent =
-                    "Error al obtener la información.";
+                document.getElementById("repoCount").textContent = "Error al obtener repos.";
             }
         }
-        getRepoCount();
 
+        async function getCommits() {
+            let totalCommits = 0;
+            let reposWithCommits = {};
+
+            try {
+                const repos = await octokit.request('GET /users/{username}/repos', {
+                    username: usuario, per_page: 100
+                });
+
+                for (const repo of repos.data) {
+                    const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+                        owner: usuario, repo: repo.name, per_page: 100
+                    });
+
+                    totalCommits += commits.data.length;
+                    reposWithCommits[repo.name] = commits.data.length;
+                }
+
+                const sortedRepos = Object.entries(reposWithCommits).sort((a, b) => b[1] - a[1]);
+                const topRepo = sortedRepos[0];
+                const top5Repos = sortedRepos.slice(0, 5);
+
+                document.getElementById("totalCommits").textContent = 
+                    `Total de commits: ${totalCommits}`;
+                document.getElementById("topRepo").textContent = 
+                    `Repo con más commits: ${topRepo[0]} (${topRepo[1]} commits)`;
+
+                const top5Text = top5Repos.map(([repo, commits], index) => 
+                    `${index + 1}. ${repo} (${commits} commits)`).join('<br>');
+
+                document.getElementById("topRepos").innerHTML = 
+                    `Top 5 repos con más commits:<br>${top5Text}`;
+            } catch (error) {
+                document.getElementById("totalCommits").textContent = "Error al obtener commits.";
+                document.getElementById("topRepo").textContent = "Error al obtener el repo principal.";
+                document.getElementById("topRepos").textContent = "Error al obtener el top 5 de repos.";
+            }
+        }
+
+        async function getFollowers() {
+            try {
+                const response = await octokit.request('GET /users/{username}/followers', { username: usuario });
+                document.getElementById("followers").textContent = 
+                    `Nuevos seguidores: ${response.data.length}`;
+            } catch (error) {
+                document.getElementById("followers").textContent = "Error al obtener seguidores.";
+            }
+        }
+
+        async function getFollowing() {
+            try {
+                const response = await octokit.request('GET /users/{username}/following', { username: usuario });
+                document.getElementById("following").textContent = 
+                    `Nuevos seguidos: ${response.data.length}`;
+            } catch (error) {
+                document.getElementById("following").textContent = "Error al obtener seguidos.";
+            }
+        }
 
         async function getTopCollaborator() {
-            const octokit = new Octokit();
             let collaborators = {};
 
             try {
                 const repos = await octokit.request('GET /users/{username}/repos', {
-                    username: usuario,
-                    per_page: 100
+                    username: usuario, per_page: 100
                 });
 
-                for (let repo of repos.data) {
+                for (const repo of repos.data) {
                     const contributors = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
-                        owner: usuario,
-                        repo: repo.name
+                        owner: usuario, repo: repo.name
                     });
 
                     contributors.data.forEach(contributor => {
@@ -59,16 +115,66 @@
                 }
 
                 const topCollaborator = Object.entries(collaborators).reduce((a, b) => a[1] > b[1] ? a : b, []);
-                console.log(`Mejor amigo: ${topCollaborator[0]} con ${topCollaborator[1]} contribuciones.`);
-                document.getElementById("mejorAmigo").textContent =
-                `Mejor amigo: ${topCollaborator[0]} con ${topCollaborator[1]} contribuciones.`;
+                document.getElementById("mejorAmigo").textContent = 
+                    topCollaborator.length ? 
+                    `Mejor amigo: ${topCollaborator[0]} (${topCollaborator[1]} contribuciones)` : 
+                    "Lobo solitario: Sin colaboraciones";
             } catch (error) {
-                console.error("Error al obtener colaborador:", error);
-                document.getElementById("mejorAmigo").textContent = `Error al obtener a tu mejor amigo`
+                document.getElementById("mejorAmigo").textContent = "Error al obtener mejor amigo.";
             }
         }
-        getTopCollaborator();
 
+        async function getActivityStreaks() {
+            try {
+                const events = await octokit.request('GET /users/{username}/events/public', {
+                    username: usuario, per_page: 100
+                });
+
+                let dates = events.data.map(event => new Date(event.created_at).toDateString());
+                let counts = dates.reduce((acc, date) => {
+                    acc[date] = (acc[date] || 0) + 1;
+                    return acc;
+                }, {});
+
+                let busiestDay = Object.entries(counts).reduce((a, b) => a[1] > b[1] ? a : b, []);
+                document.getElementById("busyDay").textContent = 
+                    `Día con más trabajo: ${busiestDay[0]} (${busiestDay[1]} eventos)`;
+
+                let currentStreak = 0, maxStreak = 0, idleStreak = 0, maxIdle = 0;
+                const dateSet = new Set(dates);
+
+                const startDate = new Date(Math.min(...events.data.map(e => new Date(e.created_at).getTime())));
+                const endDate = new Date();
+
+                for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+                    if (dateSet.has(d.toDateString())) {
+                        currentStreak++;
+                        idleStreak = 0;
+                    } else {
+                        maxStreak = Math.max(maxStreak, currentStreak);
+                        currentStreak = 0;
+                        idleStreak++;
+                        maxIdle = Math.max(maxIdle, idleStreak);
+                    }
+                }
+
+                document.getElementById("maxStreak").textContent = 
+                    `Mayor racha activa: ${maxStreak} días`;
+                document.getElementById("maxIdle").textContent = 
+                    `Mayor racha inactiva: ${maxIdle} días`;
+
+            } catch (error) {
+                document.getElementById("busyDay").textContent = "Error al obtener actividad.";
+            }
+        }
+
+        // Ejecuta todas las funciones
+        getRepoCount();
+        getCommits();
+        getFollowers();
+        getFollowing();
+        getTopCollaborator();
+        getActivityStreaks();
     </script>
 </body>
 
