@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repos</title>
+</head>
+<body>
+    <h1>Repositorios de GitHub</h1>
+    <p id="repoCount">Cargando...</p>
+
+    <script type="module">
+        import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+
+        async function getRepoCount() {
+            const octokit = new Octokit();
+            try {
+                const response = await octokit.request('GET /users/{username}', {
+                    username: 'HectorH06'
+                });
+
+                const repoCount = response.data.public_repos;
+                document.getElementById("repoCount").textContent = 
+                    `El usuario HectorH06 tiene ${repoCount} repositorios públicos.`;
+            } catch (error) {
+                console.error(error);
+                document.getElementById("repoCount").textContent = 
+                    "Error al obtener la información.";
+            }
+        }
+
+        getRepoCount();
+    </script>
+</body>
+</html>
