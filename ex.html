@@ -57,13 +57,29 @@
                 console.log(`Año: ${year}`);
 
                 //Llamar al resto de funciones para obtener sus valores
+
+                const repos = getRepos(user)
                 getRepoCount(user)
-                getCommits(user)
+                getCommits(user, repos)
                 getFollowers(user)
                 getFollowing(user)
-                getTopCollaborator(user)
+                getTopCollaborator(user, repos)
                 getActivityStreaks(user)
             });
+        }
+
+        /*Debido al limite de solicitudes sin autenticar, y que llamamos a repos varias veces, 
+        es util tener esta funcion para disminuir las llamadas */
+
+        async function getRepos(usuario) {
+            try {
+                const repos = await octokit.request('GET /users/{username}/repos', {
+                    username: usuario, per_page: 100
+                });
+                return repos;
+            } catch {
+                console.log("No se pudieron obtener los repos")
+            }
         }
 
         async function getRepoCount(usuario) {
@@ -76,15 +92,11 @@
             }
         }
 
-        async function getCommits(usuario) {
+        async function getCommits(usuario, repos) {
             let totalCommits = 0;
             let reposWithCommits = {};
 
             try {
-                const repos = await octokit.request('GET /users/{username}/repos', {
-                    username: usuario, per_page: 100
-                });
-
                 for (const repo of repos.data) {
                     const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
                         owner: usuario, repo: repo.name, per_page: 100
@@ -135,14 +147,10 @@
             }
         }
 
-        async function getTopCollaborator(usuario) {
+        async function getTopCollaborator(usuario, repos) {
             let collaborators = {};
 
             try {
-                const repos = await octokit.request('GET /users/{username}/repos', {
-                    username: usuario, per_page: 100
-                });
-
                 for (const repo of repos.data) {
                     const contributors = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
                         owner: usuario, repo: repo.name
