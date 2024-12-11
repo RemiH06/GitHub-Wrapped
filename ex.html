@@ -49,21 +49,22 @@
 
         const boton = document.querySelector('form button');
         if (boton) {
-            boton.addEventListener('click', (event) => {
+            boton.addEventListener('click', async (event) => {
                 event.preventDefault();
-                const user = getUsername();
+                const user = "HectorH06"//getUsername();
                 const year = getYear();
                 console.log(`Usuario: ${user}`);
                 console.log(`Año: ${year}`);
 
                 //Llamar al resto de funciones para obtener sus valores
 
-                const repos = getRepos(user, year)
-                getCommits(user, repos)
-                getFollowers(user)
-                getFollowing(user)
-                getTopCollaborator(user, repos)
-                getActivityStreaks(user)
+                const repos = await getRepos(user)
+                const reposFiltered = await filterRepos(repos, year)
+                await getCommits(user, repos)
+                //getFollowers(user)
+                //getFollowing(user)
+                //await getTopCollaborator(user, reposFiltered)
+                //getActivityStreaks(user)
             });
         }
 
@@ -75,35 +76,38 @@
                 // Solicitar los repositorios públicos del usuario
                 const response = await octokit.request('GET /users/{username}/repos', { username: usuario, per_page: 100 });
 
-                console.log("Response.data: ", response.data)
-                // Filtrar repositorios creados en el año especificado
-                const reposFiltrados = response.data.filter(repo => {
-                    const createdAt = new Date(repo.created_at);
-                    console.log("Created at: ", createdAt, createdAt.getFullYear())
-                    return createdAt.getFullYear() == year;
-                });
-
-                // Mostrar el resultado
-                document.getElementById("repoCount").textContent =
-                    `El usuario ${usuario} tiene ${reposFiltrados.length} repos públicos creados en el año ${year}.`;
-                return reposFiltrados
+                //console.log("Repos response.data: ", response.data)
+                return response.data;            
             } catch (error) {
                 document.getElementById("repoCount").textContent = "Error al obtener repos.";
-                console.error(error); // Opcional para depuración
+                console.error(error);
             }
         }
 
+        async function filterRepos(repos, year) {
+            // Filtrar repositorios creados en el año especificado
+            const reposFiltrados = response.data.filter(repo => {
+                const createdAt = new Date(repo.created_at);
+                //console.log("Created at: ", createdAt, createdAt.getFullYear())
+                return createdAt.getFullYear() == year;
+            });
+
+            // Mostrar el resultado
+            document.getElementById("repoCount").textContent =
+                `El usuario ${usuario} tiene ${reposFiltrados.length} repos públicos creados en el año ${year}.`;
+            return reposFiltrados
+        }
 
         async function getCommits(usuario, repos) {
             let totalCommits = 0;
             let reposWithCommits = {};
 
             try {
-                for (const repo of repos.data) {
+                for (const repo of repos) {
                     const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
                         owner: usuario, repo: repo.name, per_page: 100
                     });
-
+                    console.log("Commits: ", commits)
                     totalCommits += commits.data.length;
                     reposWithCommits[repo.name] = commits.data.length;
                 }
@@ -123,6 +127,7 @@
                 document.getElementById("topRepos").innerHTML =
                     `Top 5 repos con más commits:<br>${top5Text}`;
             } catch (error) {
+                console.log("Error al obtener commits: ", error)
                 document.getElementById("totalCommits").textContent = "Error al obtener commits.";
                 document.getElementById("topRepo").textContent = "Error al obtener el repo principal.";
                 document.getElementById("topRepos").textContent = "Error al obtener el top 5 de repos.";
@@ -132,6 +137,7 @@
         async function getFollowers(usuario) {
             try {
                 const response = await octokit.request('GET /users/{username}/followers', { username: usuario });
+                console.log("Followers: ", response)
                 document.getElementById("followers").textContent =
                     `Nuevos seguidores: ${response.data.length}`;
             } catch (error) {
@@ -142,6 +148,7 @@
         async function getFollowing(usuario) {
             try {
                 const response = await octokit.request('GET /users/{username}/following', { username: usuario });
+                console.log("Following: ", response)
                 document.getElementById("following").textContent =
                     `Nuevos seguidos: ${response.data.length}`;
             } catch (error) {
@@ -153,10 +160,12 @@
             let collaborators = {};
 
             try {
-                for (const repo of repos.data) {
+                console.log("Repos en topCollaborator: ", repos)
+                for (const repo of repos) {
                     const contributors = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
                         owner: usuario, repo: repo.name
                     });
+                    console.log("Contributors: ", contributors)
 
                     contributors.data.forEach(contributor => {
                         if (contributor.login !== usuario) {
@@ -171,6 +180,7 @@
                         `Mejor amigo: ${topCollaborator[0]} (${topCollaborator[1]} contribuciones)` :
                         "Lobo solitario: Sin colaboraciones";
             } catch (error) {
+                console.log("Error al obtener mejor amigo: ", error)
                 document.getElementById("mejorAmigo").textContent = "Error al obtener mejor amigo.";
             }
         }
