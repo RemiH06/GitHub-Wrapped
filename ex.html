@@ -50,7 +50,7 @@
         const boton = document.querySelector('form button');
         if (boton) {
             boton.addEventListener('click', (event) => {
-                event.preventDefault(); 
+                event.preventDefault();
                 const user = getUsername();
                 const year = getYear();
                 console.log(`Usuario: ${user}`);
@@ -58,8 +58,7 @@
 
                 //Llamar al resto de funciones para obtener sus valores
 
-                const repos = getRepos(user)
-                getRepoCount(user)
+                const repos = getRepos(user, year)
                 getCommits(user, repos)
                 getFollowers(user)
                 getFollowing(user)
@@ -71,26 +70,29 @@
         /*Debido al limite de solicitudes sin autenticar, y que llamamos a repos varias veces, 
         es util tener esta funcion para disminuir las llamadas */
 
-        async function getRepos(usuario) {
+        async function getRepos(usuario, year) {
             try {
-                const repos = await octokit.request('GET /users/{username}/repos', {
-                    username: usuario, per_page: 100
+                // Solicitar los repositorios públicos del usuario
+                const response = await octokit.request('GET /users/{username}/repos', { username: usuario, per_page: 100 });
+
+                console.log("Response.data: ", response.data)
+                // Filtrar repositorios creados en el año especificado
+                const reposFiltrados = response.data.filter(repo => {
+                    const createdAt = new Date(repo.created_at);
+                    console.log("Created at: ", createdAt, createdAt.getFullYear())
+                    return createdAt.getFullYear() == year;
                 });
-                return repos;
-            } catch {
-                console.log("No se pudieron obtener los repos")
+
+                // Mostrar el resultado
+                document.getElementById("repoCount").textContent =
+                    `El usuario ${usuario} tiene ${reposFiltrados.length} repos públicos creados en el año ${year}.`;
+                return reposFiltrados
+            } catch (error) {
+                document.getElementById("repoCount").textContent = "Error al obtener repos.";
+                console.error(error); // Opcional para depuración
             }
         }
 
-        async function getRepoCount(usuario) {
-            try {
-                const response = await octokit.request('GET /users/{username}', { username: usuario });
-                document.getElementById("repoCount").textContent =
-                    `El usuario ${usuario} tiene ${response.data.public_repos} repos públicos.`;
-            } catch (error) {
-                document.getElementById("repoCount").textContent = "Error al obtener repos.";
-            }
-        }
 
         async function getCommits(usuario, repos) {
             let totalCommits = 0;
