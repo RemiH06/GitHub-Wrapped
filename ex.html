@@ -9,6 +9,17 @@
 
 <body>
     <h1>Estadísticas de GitHub</h1>
+    <form action="">
+        <input type="text" name="" id="" placeholder="HectorH06">
+        <select name="" id="">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+        <button>Obtener mi github wrapped</button>
+    </form>
     <p id="repoCount">Cargando repositorios...</p>
     <p id="totalCommits">Cargando commits...</p>
     <p id="followers">Cargando seguidores...</p>
@@ -22,20 +33,50 @@
 
     <script type="module">
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-        const usuario = 'HectorH06';
         const octokit = new Octokit();
 
-        async function getRepoCount() {
+        // Función para obtener el valor del input de texto
+        function getUsername() {
+            const input = document.querySelector('form input[type="text"]');
+            return input ? input.value : '';
+        }
+
+        // Función para obtener el valor seleccionado del select
+        function getYear() {
+            const select = document.querySelector('form select');
+            return select ? select.value : '';
+        }
+
+        const boton = document.querySelector('form button');
+        if (boton) {
+            boton.addEventListener('click', (event) => {
+                event.preventDefault(); 
+                const user = getUsername();
+                const year = getYear();
+                console.log(`Usuario: ${user}`);
+                console.log(`Año: ${year}`);
+
+                //Llamar al resto de funciones para obtener sus valores
+                getRepoCount(user)
+                getCommits(user)
+                getFollowers(user)
+                getFollowing(user)
+                getTopCollaborator(user)
+                getActivityStreaks(user)
+            });
+        }
+
+        async function getRepoCount(usuario) {
             try {
                 const response = await octokit.request('GET /users/{username}', { username: usuario });
-                document.getElementById("repoCount").textContent = 
+                document.getElementById("repoCount").textContent =
                     `El usuario ${usuario} tiene ${response.data.public_repos} repos públicos.`;
             } catch (error) {
                 document.getElementById("repoCount").textContent = "Error al obtener repos.";
             }
         }
 
-        async function getCommits() {
+        async function getCommits(usuario) {
             let totalCommits = 0;
             let reposWithCommits = {};
 
@@ -57,15 +98,15 @@
                 const topRepo = sortedRepos[0];
                 const top5Repos = sortedRepos.slice(0, 5);
 
-                document.getElementById("totalCommits").textContent = 
+                document.getElementById("totalCommits").textContent =
                     `Total de commits: ${totalCommits}`;
-                document.getElementById("topRepo").textContent = 
+                document.getElementById("topRepo").textContent =
                     `Repo con más commits: ${topRepo[0]} (${topRepo[1]} commits)`;
 
-                const top5Text = top5Repos.map(([repo, commits], index) => 
+                const top5Text = top5Repos.map(([repo, commits], index) =>
                     `${index + 1}. ${repo} (${commits} commits)`).join('<br>');
 
-                document.getElementById("topRepos").innerHTML = 
+                document.getElementById("topRepos").innerHTML =
                     `Top 5 repos con más commits:<br>${top5Text}`;
             } catch (error) {
                 document.getElementById("totalCommits").textContent = "Error al obtener commits.";
@@ -74,27 +115,27 @@
             }
         }
 
-        async function getFollowers() {
+        async function getFollowers(usuario) {
             try {
                 const response = await octokit.request('GET /users/{username}/followers', { username: usuario });
-                document.getElementById("followers").textContent = 
+                document.getElementById("followers").textContent =
                     `Nuevos seguidores: ${response.data.length}`;
             } catch (error) {
                 document.getElementById("followers").textContent = "Error al obtener seguidores.";
             }
         }
 
-        async function getFollowing() {
+        async function getFollowing(usuario) {
             try {
                 const response = await octokit.request('GET /users/{username}/following', { username: usuario });
-                document.getElementById("following").textContent = 
+                document.getElementById("following").textContent =
                     `Nuevos seguidos: ${response.data.length}`;
             } catch (error) {
                 document.getElementById("following").textContent = "Error al obtener seguidos.";
             }
         }
 
-        async function getTopCollaborator() {
+        async function getTopCollaborator(usuario) {
             let collaborators = {};
 
             try {
@@ -115,16 +156,16 @@
                 }
 
                 const topCollaborator = Object.entries(collaborators).reduce((a, b) => a[1] > b[1] ? a : b, []);
-                document.getElementById("mejorAmigo").textContent = 
-                    topCollaborator.length ? 
-                    `Mejor amigo: ${topCollaborator[0]} (${topCollaborator[1]} contribuciones)` : 
-                    "Lobo solitario: Sin colaboraciones";
+                document.getElementById("mejorAmigo").textContent =
+                    topCollaborator.length ?
+                        `Mejor amigo: ${topCollaborator[0]} (${topCollaborator[1]} contribuciones)` :
+                        "Lobo solitario: Sin colaboraciones";
             } catch (error) {
                 document.getElementById("mejorAmigo").textContent = "Error al obtener mejor amigo.";
             }
         }
 
-        async function getActivityStreaks() {
+        async function getActivityStreaks(usuario) {
             try {
                 const events = await octokit.request('GET /users/{username}/events/public', {
                     username: usuario, per_page: 100
@@ -137,7 +178,7 @@
                 }, {});
 
                 let busiestDay = Object.entries(counts).reduce((a, b) => a[1] > b[1] ? a : b, []);
-                document.getElementById("busyDay").textContent = 
+                document.getElementById("busyDay").textContent =
                     `Día con más trabajo: ${busiestDay[0]} (${busiestDay[1]} eventos)`;
 
                 let currentStreak = 0, maxStreak = 0, idleStreak = 0, maxIdle = 0;
@@ -158,23 +199,15 @@
                     }
                 }
 
-                document.getElementById("maxStreak").textContent = 
+                document.getElementById("maxStreak").textContent =
                     `Mayor racha activa: ${maxStreak} días`;
-                document.getElementById("maxIdle").textContent = 
+                document.getElementById("maxIdle").textContent =
                     `Mayor racha inactiva: ${maxIdle} días`;
 
             } catch (error) {
                 document.getElementById("busyDay").textContent = "Error al obtener actividad.";
             }
         }
-
-        // Ejecuta todas las funciones
-        getRepoCount();
-        getCommits();
-        getFollowers();
-        getFollowing();
-        getTopCollaborator();
-        getActivityStreaks();
     </script>
 </body>
 
