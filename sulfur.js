@@ -1,5 +1,7 @@
 function main() {
-    const password = "contrasena123";
+    const inputElement = document.getElementById("passwordInput");
+    const outputElement = document.getElementById("output");
+    const password = inputElement.value;
 
     if (password) {
         let asciiArray = Array.from(password)
@@ -27,70 +29,36 @@ function main() {
             }
         });
 
-        const euler = generateEuler(255);
+        const eulerDecimals = "71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746639193200305992181741359662904357290033429526059563073813232862794349076323382988075319525101901157383418793070215408914993488416750924476146066808226";
+
         let finalArray = modifiedColorArray.map((colorValue, index) => {
-            const somePlace = Math.min(
-                asciiArray[Math.max(0, index - 1)],
-                asciiArray[Math.min(index, asciiArray.length - 1)]
-            );
-            let decimalResult = parseInt(euler.slice(somePlace, somePlace + 2), 10);
-            if (decimalResult + parseInt(euler[somePlace + 1], 10) < 24) {
-                decimalResult = parseInt(euler.slice(somePlace, somePlace + 3), 10);
-            }
-            const replacementValue = decimalResult.toString(16);
-            if (colorValue.includes("ZZ")) {
-                return colorValue.replace("ZZ", replacementValue);
-            } else if (colorValue.includes("YY")) {
-                return colorValue.replace("YY", replacementValue);
-            } else {
-                return colorValue.replace("XX", replacementValue);
-            }
+            return colorValue
+                .replace(/YY|ZZ/g, placeholder => {
+                    const asciiValue = asciiArray[index % asciiArray.length];
+                    return getEulerValue(asciiValue, eulerDecimals).toString(16).padStart(2, '0');
+                });
         });
 
-        console.log("Valores ASCII de la contraseña:\n" + asciiArray.join(", "));
-        console.log("Valores hexadecimales de la contraseña:\n" + hexArray.join(", "));
-        console.log("Valores de color:\n" + colorArray.join(", "));
-        console.log("Valores de color pero con phi:\n" + modifiedColorArray.join(", "));
-        console.log("Valores de color con reemplazo final:\n" + finalArray.join(", "));
+        outputElement.textContent = `Valores ASCII: ${asciiArray.join(", ")}\nValores Hexadecimales: ${hexArray.join(", ")}\nValores de Color: ${colorArray.join(", ")}\nValores Modificados: ${modifiedColorArray.join(", ")}\nValores Finales: ${finalArray.join(", ")}`;
     } else {
-        console.log("La entrada de contraseña es nula.");
+        outputElement.textContent = "La entrada de contraseña es nula.";
     }
 }
 
-function hexToDecimal(hexStr) {
-    return parseInt(hexStr, 16);
-}
+function getEulerValue(asciiValue, eulerDecimals) {
+    const position = asciiValue - 1;
+    let result = "";
 
-function generateEuler(decimal) {
-    let euler = 1;
-    let factorial = 1;
-    let increment = 7;
-    let decrement = 13;
-    let currentDecimal = decimal;
-
-    while (true) {
-        euler = 1;
-        factorial = 1;
-
-        for (let i = 1; i <= currentDecimal; i++) {
-            factorial *= i;
-            euler += 1 / factorial;
-        }
-
-        if (Math.floor(euler) > 255) {
-            currentDecimal -= decrement;
-
-            if (currentDecimal <= 0) {
-                currentDecimal = 7;
-                increment += 7;
-                decrement += 13;
-            }
-        } else {
-            break;
+    for (let i = position; i < eulerDecimals.length; i++) {
+        result += eulerDecimals[i];
+        const numericValue = parseInt(result, 10);
+        if (numericValue > 0 && numericValue < 256) {
+            const inverted = parseInt(result.split("").reverse().join("") + "0", 10);
+            return inverted < 256 ? inverted : numericValue;
         }
     }
 
-    return euler.toFixed(100); // Adjust precision as needed
+    return 1;
 }
 
 function calculateFibonacci(n, arraySize) {
@@ -105,5 +73,3 @@ function calculateFibonacci(n, arraySize) {
     }
     return result;
 }
-
-main();

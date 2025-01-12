@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Stats</title>
+    <script src="sulfur.js" defer></script> <!-- Colorin -->
 </head>
 
 <body>
     <h1>Estadísticas de GitHub</h1>
     <form action="">
-        <input type="text" name="" id="" placeholder="HectorH06">
-        <select name="" id="">
+        <input type="text" id="usernameInput" placeholder="HectorH06">
+        <select id="yearSelect">
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
         </select>
-        <button>Obtener mi github wrapped</button>
+        <button id="processButton">Obtener mi GitHub Wrapped</button>
     </form>
+
+    <div id="colorContainer" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+    
     <p id="repoCount">Cargando repositorios...</p>
     <p id="totalCommits">Cargando commits...</p>
     <p id="followers">Cargando seguidores...</p>
@@ -30,6 +34,59 @@
     <p id="busyDay">Cargando día con más trabajo...</p>
     <p id="maxStreak">Cargando mayor racha activa...</p>
     <p id="maxIdle">Cargando mayor racha inactiva...</p>
+
+    <script>
+        const button = document.getElementById("processButton");
+        const usernameInput = document.getElementById("usernameInput");
+        const colorContainer = document.getElementById("colorContainer");
+
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const username = usernameInput.value.trim();
+            if (username) {
+                // Crea elementos temporales para que sulfur exista
+                const tempInput = document.createElement("input");
+                const tempOutput = document.createElement("div");
+                tempInput.id = "passwordInput";
+                tempOutput.id = "output";
+                tempInput.value = username;
+                document.body.appendChild(tempInput);
+                document.body.appendChild(tempOutput);
+
+                // main de sulfur
+                main();
+
+                // colores procesados
+                const outputText = tempOutput.textContent;
+                const match = outputText.match(/Valores Finales: (.+)/);
+                const colors = match ? match[1].split(", ") : [];
+
+                // elimina elementos tempo
+                tempInput.remove();
+                tempOutput.remove();
+
+                // Muestra los colores en cuadros
+                displayColors(colors);
+            } else {
+                alert("Por favor, ingresa un nombre de usuario.");
+            }
+        });
+
+        // #XXYYZZ
+        function displayColors(colors) {
+            colorContainer.innerHTML = ""; // clean
+
+            colors.forEach((color) => {
+                const colorBox = document.createElement("div");
+                colorBox.style.width = "50px";
+                colorBox.style.height = "50px";
+                colorBox.style.backgroundColor = `#${color}`;
+                colorBox.title = `#${color}`;
+                colorContainer.appendChild(colorBox);
+            });
+        }
+    </script>
 
     <script type="module">
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
