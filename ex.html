@@ -6,6 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Stats</title>
     <script src="sulfur.js" defer></script> <!-- Colorin -->
+    <style>
+        @keyframes fondoMovimiento {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            animation: fondoMovimiento 20s infinite linear;
+            background: linear-gradient(270deg, #ff6b6b, #6b6bff, #6bff6b, #ffff6b);
+            background-size: 400% 400%;
+            text-align: center;
+            color: white;
+            transition: font-family 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        #colorContainer {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff4040;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,6 +85,7 @@
     <p id="maxStreak">Cargando mayor racha activa...</p>
     <p id="maxIdle">Cargando mayor racha inactiva...</p>
 
+    <!--Azufre-->
     <script>
         const button = document.getElementById("processButton");
         const usernameInput = document.getElementById("usernameInput");
@@ -88,6 +139,7 @@
         }
     </script>
 
+    <!--Bendito Octokit-->
     <script type="module">
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
         const octokit = new Octokit();
@@ -300,6 +352,15 @@
             }
         }
     </script>
+
+    <!--Cambio de fuente-->
+    <script> 
+        const fuentes = ['Arial', 'Verdana', 'Georgia', 'Tahoma', 'Courier New', 'Times New Roman'];
+        setInterval(() => {
+            document.body.style.fontFamily = fuentes[Math.floor(Math.random() * fuentes.length)];
+        }, 500);
+    </script>
+
 </body>
 
 </html>
