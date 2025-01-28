@@ -8,9 +8,17 @@
     <script src="sulfur.js" defer></script> <!-- Colorin -->
     <style>
         @keyframes fondoMovimiento {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         body {
@@ -39,7 +47,9 @@
             justify-content: center;
         }
 
-        input, select, button {
+        input,
+        select,
+        button {
             padding: 10px;
             border: none;
             border-radius: 5px;
@@ -73,17 +83,21 @@
     </form>
 
     <div id="colorContainer" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
-    
-    <p id="repoCount">Cargando repositorios...</p>
-    <p id="totalCommits">Cargando commits...</p>
-    <p id="followers">Cargando seguidores...</p>
-    <p id="following">Cargando seguidos...</p>
-    <p id="mejorAmigo">Cargando mejor amigo...</p>
-    <p id="topRepo">Cargando repo con más commits...</p>
-    <p id="topRepos">Cargando top 5 repos con más commits...</p>
-    <p id="busyDay">Cargando día con más trabajo...</p>
-    <p id="maxStreak">Cargando mayor racha activa...</p>
-    <p id="maxIdle">Cargando mayor racha inactiva...</p>
+
+    <!--Para cambiar el color del loader se puede usar <my-loader style="color: #454545;"></my-loader>
+    Por defecto agarra el color blanco, a mi se me hace que se ve bien
+    -->
+    <my-loader></my-loader>
+    <p id="repoCount"></p>
+    <p id="totalCommits"></p>
+    <p id="followers"></p>
+    <p id="following"></p>
+    <p id="mejorAmigo"></p>
+    <p id="topRepo"></p>
+    <p id="topRepos"></p>
+    <p id="busyDay"></p>
+    <p id="maxStreak"></p>
+    <p id="maxIdle"></p>
 
     <!--Azufre-->
     <script>
@@ -354,12 +368,15 @@
     </script>
 
     <!--Cambio de fuente-->
-    <script> 
+    <script>
         const fuentes = ['Arial', 'Verdana', 'Georgia', 'Tahoma', 'Courier New', 'Times New Roman'];
         setInterval(() => {
             document.body.style.fontFamily = fuentes[Math.floor(Math.random() * fuentes.length)];
         }, 500);
     </script>
+
+    <!--Importacion de componentes personalizados-->
+    <script src="components/loader.js"></script>
 
 </body>
 
