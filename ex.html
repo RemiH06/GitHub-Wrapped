@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Lato:wght@400;700&family=Nunito:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Orbitron:wght@400;700&family=Exo:wght@400;700&family=Audiowide&family=Press+Start+2P&family=Share+Tech+Mono&family=Indie+Flower&family=Pacifico&family=Caveat&family=Chewy&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
     <title>GitHub Stats</title>
     <script src="sulfur.js" defer></script> <!-- Colorin -->
     <style>
@@ -22,9 +24,9 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             animation: fondoMovimiento 20s infinite linear;
-            background: linear-gradient(270deg, #ff6b6b, #6b6bff, #6bff6b, #ffff6b);
+            background: linear-gradient(90deg, #ff6b6b, #6b6bff, #6bff6b, #ffff6b);
             background-size: 400% 400%;
             text-align: center;
             color: white;
@@ -368,12 +370,19 @@
     </script>
 
     <!--Cambio de fuente-->
-    <script>
-        const fuentes = ['Arial', 'Verdana', 'Georgia', 'Tahoma', 'Courier New', 'Times New Roman'];
+    <script> 
+        const fuentes = [
+            'Poppins', 'Montserrat', 'Raleway', 'Lato', 'Nunito',  // Modernas
+            'Merriweather', 'Playfair Display', 'Cormorant Garamond', 'Libre Baskerville', 'Old Standard TT', // Clásicas
+            'Orbitron', 'Exo', 'Audiowide', 'Press Start 2P', 'Share Tech Mono', // Futuristas/Tecnológicas
+            'Indie Flower', 'Pacifico', 'Caveat', 'Chewy', 'Gloria Hallelujah' // Creativas/Divertidas
+        ];
+    
         setInterval(() => {
-            document.body.style.fontFamily = fuentes[Math.floor(Math.random() * fuentes.length)];
+            document.querySelector("h1").style.fontFamily = fuentes[Math.floor(Math.random() * fuentes.length)];
         }, 500);
     </script>
+    
 
     <!--Importacion de componentes personalizados-->
     <script src="components/loader.js"></script>
