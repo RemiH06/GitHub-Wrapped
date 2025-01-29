@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paneles Verticales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-y: hidden;
+            font-family: 'Hubot Sans', sans-serif;
+        }
+        .container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        .panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 2rem;
+            color: aliceblue;
+            background: black;
+            scroll-snap-align: start;
+        }
+        button {
+            position: absolute;
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+            font-family: 'Hubot Sans', sans-serif;
+        }
+        .up { top: 10px; }
+        .down { bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container" id="scrollContainer">
+        <div class="panel" id="panel1">
+            <h1>Created repos</h1>
+            <button class="down" onclick="scrollToPanel(2)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel2">
+            <h1>Total commits</h1>
+            <button class="up" onclick="scrollToPanel(1)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(3)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel3">
+            <h1>Followers</h1>
+            <button class="up" onclick="scrollToPanel(2)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(4)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel4">
+            <h1>Following</h1>
+            <button class="up" onclick="scrollToPanel(3)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(5)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel5">
+            <h1>Bestie</h1>
+            <button class="up" onclick="scrollToPanel(4)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(6)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel6">
+            <h1>Top repo</h1>
+            <button class="up" onclick="scrollToPanel(5)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(7)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel7">
+            <h1>Top 5 repos</h1>
+            <button class="up" onclick="scrollToPanel(6)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(8)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel8">
+            <h1>Busiest day</h1>
+            <button class="up" onclick="scrollToPanel(7)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(9)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel9">
+            <h1>Longest work streak</h1>
+            <button class="up" onclick="scrollToPanel(8)">&#x2191;</button>
+            <button class="down" onclick="scrollToPanel(10)">&#x2193;</button>
+        </div>
+        <div class="panel" id="panel10">
+            <h1>Longest inactivity streak</h1>
+            <button class="up" onclick="scrollToPanel(9)">&#x2191;</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPanel = 1;
+        const totalPanels = 10;
+        let isScrolling = false;
+
+        function scrollToPanel(panelNumber) {
+            const targetPanel = document.getElementById(`panel${panelNumber}`);
+            if (targetPanel) {
+                targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentPanel = panelNumber;
+            }
+        }
+
+        document.addEventListener('wheel', (event) => {
+            if (isScrolling) return;
+            isScrolling = true;
+
+            setTimeout(() => { isScrolling = false; }, 500);
+
+            if (event.deltaY > 0 && currentPanel < totalPanels) {
+                currentPanel++;
+            } else if (event.deltaY < 0 && currentPanel > 1) {
+                currentPanel--;
+            }
+
+            scrollToPanel(currentPanel);
+        });
+    </script>
+</body>
+</html>
