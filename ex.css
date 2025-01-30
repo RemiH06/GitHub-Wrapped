@@ -1,0 +1,58 @@
+@keyframes fondoMovimiento {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    animation: fondoMovimiento 20s infinite linear;
+    background: linear-gradient(90deg, #ff6b6b, #6b6bff, #6bff6b, #ffff6b);
+    background-size: 400% 400%;
+    text-align: center;
+    color: white;
+    transition: font-family 0.5s ease-in-out;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+#colorContainer {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+input,
+select,
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+button {
+    background-color: #ff6b6b;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff4040;
+}
