@@ -1,91 +1,192 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paneles Verticales</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Lato:wght@400;700&family=Nunito:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Orbitron:wght@400;700&family=Exo:wght@400;700&family=Audiowide&family=Press+Start+2P&family=Share+Tech+Mono&family=Indie+Flower&family=Pacifico&family=Caveat&family=Chewy&family=Gloria+Hallelujah&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ex.css">
     <link rel="stylesheet" href="index.css">
+    <title>GitHub Stats</title>
+    <script src="sulfur.js" defer></script> <!-- Colorin -->
 </head>
+
 <body>
     <div class="container" id="scrollContainer">
+        <div class="panel" id="panel0">
+            <h1>Estadísticas de GitHub</h1>
+            <form action="">
+                <input type="text" id="usernameInput" placeholder="HectorH06">
+                <select id="yearSelect">
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+                <button id="processButton">Unwrap!</button>
+            </form>
+            <h1>General Information</h1>
+            <button class="down" onclick="scrollToPanel(1)">&#x2193;</button>
+        </div>
         <div class="panel" id="panel1">
             <h1>Created repos</h1>
+            <p id="repoCount"></p>
+
             <button class="down" onclick="scrollToPanel(2)">&#x2193;</button>
         </div>
         <div class="panel" id="panel2">
             <h1>Total commits</h1>
+            <p id="totalCommits"></p>
+
             <button class="up" onclick="scrollToPanel(1)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(3)">&#x2193;</button>
         </div>
         <div class="panel" id="panel3">
             <h1>Followers</h1>
+            <p id="followers"></p>
+
             <button class="up" onclick="scrollToPanel(2)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(4)">&#x2193;</button>
         </div>
         <div class="panel" id="panel4">
             <h1>Following</h1>
+            <p id="following"></p>
+
             <button class="up" onclick="scrollToPanel(3)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(5)">&#x2193;</button>
         </div>
         <div class="panel" id="panel5">
             <h1>Bestie</h1>
+            <p id="mejorAmigo"></p>
+
             <button class="up" onclick="scrollToPanel(4)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(6)">&#x2193;</button>
         </div>
         <div class="panel" id="panel6">
             <h1>Top repo</h1>
+            <p id="topRepo"></p>
+
             <button class="up" onclick="scrollToPanel(5)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(7)">&#x2193;</button>
         </div>
         <div class="panel" id="panel7">
             <h1>Top 5 repos</h1>
+            <p id="topRepos"></p>
+
             <button class="up" onclick="scrollToPanel(6)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(8)">&#x2193;</button>
         </div>
         <div class="panel" id="panel8">
             <h1>Busiest day</h1>
+            <p id="busyDay"></p>
+
             <button class="up" onclick="scrollToPanel(7)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(9)">&#x2193;</button>
         </div>
         <div class="panel" id="panel9">
             <h1>Longest work streak</h1>
+            <p id="maxStreak"></p>
+
             <button class="up" onclick="scrollToPanel(8)">&#x2191;</button>
             <button class="down" onclick="scrollToPanel(10)">&#x2193;</button>
         </div>
         <div class="panel" id="panel10">
             <h1>Longest inactivity streak</h1>
+            <p id="maxIdle"></p>
+
             <button class="up" onclick="scrollToPanel(9)">&#x2191;</button>
         </div>
     </div>
 
+    <!--Scroll-->
     <script>
-        let currentPanel = 1;
-        const totalPanels = 10;
-        let isScrolling = false;
-
         function scrollToPanel(panelNumber) {
             const targetPanel = document.getElementById(`panel${panelNumber}`);
             if (targetPanel) {
                 targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                currentPanel = panelNumber;
             }
         }
-
-        document.addEventListener('wheel', (event) => {
-            if (isScrolling) return;
-            isScrolling = true;
-
-            setTimeout(() => { isScrolling = false; }, 500);
-
-            if (event.deltaY > 0 && currentPanel < totalPanels) {
-                currentPanel++;
-            } else if (event.deltaY < 0 && currentPanel > 1) {
-                currentPanel--;
-            }
-
-            scrollToPanel(currentPanel);
-        });
     </script>
+
+    <!--Azufre-->
+    <script>
+        const button = document.getElementById("processButton");
+        const usernameInput = document.getElementById("usernameInput");
+        const colorContainer = document.getElementById("colorContainer");
+
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const username = usernameInput.value.trim();
+            if (username) {
+                // Crea elementos temporales para que sulfur exista
+                const tempInput = document.createElement("input");
+                const tempOutput = document.createElement("div");
+                tempInput.id = "passwordInput";
+                tempOutput.id = "output";
+                tempInput.value = username;
+                document.body.appendChild(tempInput);
+                document.body.appendChild(tempOutput);
+
+                // main de sulfur
+                main();
+
+                // colores procesados
+                const outputText = tempOutput.textContent;
+                const match = outputText.match(/Valores Finales: (.+)/);
+                const colors = match ? match[1].split(", ") : [];
+
+                // elimina elementos tempo
+                tempInput.remove();
+                tempOutput.remove();
+
+                // Muestra los colores en cuadros
+                displayColors(colors);
+            } else {
+                alert("Por favor, ingresa un nombre de usuario.");
+            }
+        });
+
+        // #XXYYZZ
+        function displayColors(colors) {
+            colorContainer.innerHTML = ""; // clean
+
+            colors.forEach((color) => {
+                const colorBox = document.createElement("div");
+                colorBox.style.width = "50px";
+                colorBox.style.height = "50px";
+                colorBox.style.backgroundColor = `#${color}`;
+                colorBox.title = `#${color}`;
+                colorContainer.appendChild(colorBox);
+            });
+        }
+    </script>
+
+    <!--Bendito Octokit-->
+    <script type="module" src="octokit.js"></script>
+
+    <!--Cambio de fuente-->
+    <script>
+        const fuentes = [
+            'Poppins', 'Montserrat', 'Raleway', 'Lato', 'Nunito',  // Modernas
+            'Merriweather', 'Playfair Display', 'Cormorant Garamond', 'Libre Baskerville', 'Old Standard TT', // Clásicas
+            'Orbitron', 'Exo', 'Audiowide', 'Press Start 2P', 'Share Tech Mono', // Futuristas/Tecnológicas
+            'Indie Flower', 'Pacifico', 'Caveat', 'Chewy', 'Gloria Hallelujah' // Creativas/Divertidas
+        ];
+
+        setInterval(() => {
+            document.querySelector("h1").style.fontFamily = fuentes[Math.floor(Math.random() * fuentes.length)];
+        }, 2000);
+    </script>
+
+
+    <!--Importacion de componentes personalizados-->
+    <script src="components/loader.js"></script>
+
 </body>
+
 </html>
