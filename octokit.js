@@ -1,6 +1,10 @@
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 const octokit = new Octokit();
 
+//Ocultar el loader por defecto al cargar la pagina
+const loader = document.querySelector('my-loader');
+loader.style.display="none";
+
 // Función para obtener el valor del input de texto
 function getUsername() {
     const input = document.querySelector('form input[type="text"]');
@@ -14,15 +18,18 @@ function getYear() {
     return select ? parseInt(select.value) : date.getFullYear();
 }
 
-const boton = document.querySelector('form button');
+const boton = document.querySelector('#processButton');
+console.log("Boton: ", boton)
 if (boton) {
     boton.addEventListener('click', async (event) => {
         event.preventDefault();
 
-        //Obtener el loader para poder ocultarlo despues
-        const loader = document.querySelector('my-loader');
+        console.log("Loader: ", loader)
+
+        //Si al final no se usa el loader, Ctrl+F y comentar las lineas que incluyan al loader.
         loader.style.display = 'block';
 
+        console.log("Previo al try")
         try {
             const user = "HectorH06"//getUsername();
             const year = getYear();
@@ -42,13 +49,15 @@ if (boton) {
             ]);
         } catch (error) {
             console.log(loader)
-            console.error("Error:", error);
+            console.error("Error al hacer clic:", error);
         } finally {
             //Ocultar el display del loader
             loader.style.display = 'none';
         }
 
     });
+}else{
+    console.log("Que pedo no hay boton")
 }
 
 /*Debido al limite de solicitudes sin autenticar, y que llamamos a repos varias veces, 

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="index.css">
     <title>GitHub Stats</title>
     <script src="sulfur.js" defer></script> <!-- Colorin -->
+    <!--Importacion de componentes personalizados-->
+    <script src="components/loader.js"></script>
 </head>
 
 <body>
@@ -30,6 +32,8 @@
                 <button id="processButton">Unwrap!</button>
             </form>
             <h1>General Information</h1>
+
+            <my-loader></my-loader>
             <button class="down" onclick="scrollToPanel(1)">&#x2193;</button>
         </div>
         <div class="panel" id="panel1">
