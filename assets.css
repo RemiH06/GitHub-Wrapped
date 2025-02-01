@@ -3,13 +3,6 @@
     overflow: hidden;
 }
 
-.corner-svg {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    animation: changeColor 10s infinite;
-}
-
 @keyframes changeColor {
     0% {
         filter: hue-rotate(0deg) brightness(0.8) saturate(0.8);
@@ -22,26 +15,58 @@
     }
 }
 
-.top-left {
-    top: -200px;
-    left: -200px;
-    transform: rotate(135deg);
-}
+.svg {
+    position: absolute;
+    animation: changeColor 10s infinite;
 
-.top-right {
-    top: -200px;
-    right: -200px;
-    transform: rotate(-135deg);
-}
+    &.mini {
+        width: 20px;
+        height: 20px;
+    }
+    &.small {
+        width: 80px;
+        height: 80px;
+    }
+    &.normal {
+        width: 200px;
+        height: 200px;
+    }
+    &.big {
+        width: 350px;
+        height: 350px;
+    }
+    &.jumbo {
+        width: 500px;
+        height: 500px;
+    }
 
-.bottom-left {
-    bottom: -200px;
-    left: -200px;
-    transform: rotate(45deg);
-}
+    &.d135 {
+        transform: rotate(135deg);
+    }
+    &.d-135 {
+        transform: rotate(-135deg);
+    }
+    &.d45 {
+        transform: rotate(45deg);
+    }
+    &.d-45 {
+        transform: rotate(-45deg);
+    }
 
-.bottom-right {
-    bottom: -200px;
-    right: -200px;
-    transform: rotate(-45deg);
+    &.TL {
+        top: -200px;
+        left: -200px;
+    }
+    &.TR {
+        top: -200px;
+        right: -200px;
+    }
+    &.BL {
+        bottom: -180px;
+        left: -180px;
+    }
+    &.BR {
+        bottom: -180px;
+        right: -180px;
+    }
 }
