@@ -39,18 +39,29 @@
         width: 500px;
         height: 500px;
     }
+    &.giant {
+        width: 1200px;
+        height: 1200px;
+    }
+    &.mega {
+        width: 2000px;
+        height: 2000px;
+    }
 
-    &.d135 {
-        transform: rotate(135deg);
-    }
-    &.d-135 {
-        transform: rotate(-135deg);
-    }
     &.d45 {
         transform: rotate(45deg);
     }
     &.d-45 {
         transform: rotate(-45deg);
+    }
+    &.d200 {
+        transform: rotate(200deg);
+    }
+    &.d135 {
+        transform: rotate(135deg);
+    }
+    &.d-135 {
+        transform: rotate(-135deg);
     }
 
     &.TL {
@@ -62,11 +73,33 @@
         right: -200px;
     }
     &.BL {
-        bottom: -180px;
-        left: -180px;
+        bottom: -200px;
+        left: -200px;
     }
     &.BR {
-        bottom: -180px;
-        right: -180px;
+        bottom: -200px;
+        right: -200px;
+    }
+    
+    &.TLGiant {
+        top: -620px;
+        left: -620px;
+    }
+    &.TRGiant {
+        top: -620px;
+        right: -620px;
+    }
+    &.BLGiant {
+        bottom: -620px;
+        left: -620px;
+    }
+    &.BRGiant {
+        bottom: -620px;
+        right: -620px;
+    }
+
+    &.BLMega {
+        bottom: -1240px;
+        left: -600px;
     }
 }
