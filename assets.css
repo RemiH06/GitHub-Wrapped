@@ -1,0 +1,47 @@
+#panel1, #panel2, #panel3, #panel4, #panel5, #panel6, #panel7, #panel8, #panel9, #panel10 {
+    position: relative;
+    overflow: hidden;
+}
+
+.corner-svg {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    animation: changeColor 10s infinite;
+}
+
+@keyframes changeColor {
+    0% {
+        filter: hue-rotate(0deg) brightness(0.8) saturate(0.8);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(0.6) saturate(0.6);
+    }
+    100% {
+        filter: hue-rotate(360deg) brightness(0.8) saturate(0.8);
+    }
+}
+
+.top-left {
+    top: -200px;
+    left: -200px;
+    transform: rotate(135deg);
+}
+
+.top-right {
+    top: -200px;
+    right: -200px;
+    transform: rotate(-135deg);
+}
+
+.bottom-left {
+    bottom: -200px;
+    left: -200px;
+    transform: rotate(45deg);
+}
+
+.bottom-right {
+    bottom: -200px;
+    right: -200px;
+    transform: rotate(-45deg);
+}
