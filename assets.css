@@ -5,13 +5,13 @@
 
 @keyframes changeColor {
     0% {
-        filter: hue-rotate(0deg) brightness(0.8) saturate(0.8);
+        filter: hue-rotate(0deg) brightness(0.8) saturate(0.6);
     }
     50% {
         filter: hue-rotate(180deg) brightness(0.6) saturate(0.6);
     }
     100% {
-        filter: hue-rotate(360deg) brightness(0.8) saturate(0.8);
+        filter: hue-rotate(360deg) brightness(0.8) saturate(0.6);
     }
 }
 
@@ -19,43 +19,68 @@
     position: absolute;
     animation: changeColor 10s infinite;
 
+    /*! Usa porcentuales w, cambia lo que diga px por %*/
     &.mini {
-        width: 20px;
-        height: 20px;
+        width: 20vw;
+        height: 20vh;
     }
     &.small {
-        width: 80px;
-        height: 80px;
+        width: 80vw;
+        height: 80vh;
     }
     &.normal {
-        width: 200px;
-        height: 200px;
+        width: 200vw;
+        height: 200vh;
     }
     &.big {
-        width: 350px;
-        height: 350px;
+        width: 350vw;
+        height: 350vh;
     }
     &.jumbo {
-        width: 500px;
-        height: 500px;
+        width: 100vw;
+        height: 100vh;
     }
     &.giant {
-        width: 1200px;
-        height: 1200px;
+        width: 300vw;
+        height: 300vh;
+        min-width: 600px;
+        min-height: 600px;
+        max-width: 1800px;
+        max-height: 1800px;
+    }
+    &.giant2 {
+        width: 300vw;
+        height: 300vh;
+        min-width: 600px;
+        min-height: 600px;
+        max-width: 3000px;
+        max-height: 3000px;
     }
     &.mega {
-        width: 2000px;
-        height: 2000px;
+        width: 600vw;
+        height: 600vh;
     }
 
+    &.d10 {
+        transform: rotate(10deg);
+    }
+    &.d30 {
+        transform: rotate(30deg);
+    }
+    &.d-30 {
+        transform: rotate(-30deg);
+    }
     &.d45 {
         transform: rotate(45deg);
     }
     &.d-45 {
         transform: rotate(-45deg);
     }
-    &.d200 {
-        transform: rotate(200deg);
+    &.d60 {
+        transform: rotate(60deg);
+    }
+    &.d-60 {
+        transform: rotate(-60deg);
     }
     &.d135 {
         transform: rotate(135deg);
@@ -65,41 +90,57 @@
     }
 
     &.TL {
-        top: -200px;
-        left: -200px;
+        top: -45vh;
+        left: -45vw;
     }
     &.TR {
-        top: -200px;
-        right: -200px;
+        top: -45vh;
+        right: -45vw;
     }
     &.BL {
-        bottom: -200px;
-        left: -200px;
+        bottom: -45vh;
+        left: -45vw;
     }
     &.BR {
-        bottom: -200px;
-        right: -200px;
+        bottom: -45vh;
+        right: -45vw;
     }
     
     &.TLGiant {
-        top: -620px;
-        left: -620px;
+        top: clamp(-200vh, -175vh, -175vh);
+        left: clamp(-215vw, -175vw, -175vh);
     }
     &.TRGiant {
-        top: -620px;
-        right: -620px;
+        top: clamp(-200vh, -175vh, -175vh);
+        right: clamp(-215vw, -175vw, -175vh);
     }
     &.BLGiant {
-        bottom: -620px;
-        left: -620px;
+        bottom: clamp(-200vh, -175vh, -175vh);
+        left: clamp(-215vw, -175vw, -175vh);
     }
     &.BRGiant {
-        bottom: -620px;
-        right: -620px;
+        bottom: clamp(-200vh, -175vh, -175vh);
+        right: clamp(-215vw, -175vw, -175vh);
+    }
+    &.TLGiant2 {
+        top: clamp(-120vh, -175vh, -175vh);
+        left: clamp(-300vw, -150vw, -300vh);
+    }
+    &.TRGiant2 {
+        top: clamp(-120vh, -175vh, -175vh);
+        right: clamp(-300vw, -150vw, -300vh);
+    }
+    &.BLGiant2 {
+        bottom: clamp(-120vh, -175vh, -175vh);
+        left: clamp(-300vw, -150vw, -300vh);
+    }
+    &.BRGiant2 {
+        bottom: clamp(-120vh, -175vh, -175vh);
+        right: clamp(-300vw, -150vw, -300vh);
     }
 
     &.BLMega {
-        bottom: -1240px;
-        left: -600px;
+        bottom: -510vh;
+        left: -250vw;
     }
 }
