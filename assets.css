@@ -1,3 +1,5 @@
+@import url('./vars.css');
+
 #panel1, #panel2, #panel3, #panel4, #panel5, #panel6, #panel7, #panel8, #panel9, #panel10 {
     position: relative;
     overflow: hidden;
@@ -19,7 +21,6 @@
     position: absolute;
     animation: changeColor 10s infinite;
 
-    /*! Usa porcentuales w, cambia lo que diga px por %*/
     &.mini {
         width: 20vw;
         height: 20vh;
@@ -107,36 +108,36 @@
     }
     
     &.TLGiant {
-        top: clamp(-200vh, -175vh, -175vh);
-        left: clamp(-215vw, -175vw, -175vh);
+        top: var(--edge-clamp-y-g);
+        left: var(--edge-clamp-x-g);
     }
     &.TRGiant {
-        top: clamp(-200vh, -175vh, -175vh);
-        right: clamp(-215vw, -175vw, -175vh);
+        top: var(--edge-clamp-y-g);
+        right: var(--edge-clamp-x-g);
     }
     &.BLGiant {
-        bottom: clamp(-200vh, -175vh, -175vh);
-        left: clamp(-215vw, -175vw, -175vh);
+        bottom: var(--edge-clamp-y-g);
+        left: var(--edge-clamp-x-g);
     }
     &.BRGiant {
-        bottom: clamp(-200vh, -175vh, -175vh);
-        right: clamp(-215vw, -175vw, -175vh);
+        bottom: var(--edge-clamp-y-g);
+        right: var(--edge-clamp-x-g);
     }
     &.TLGiant2 {
-        top: clamp(-120vh, -175vh, -175vh);
-        left: clamp(-300vw, -150vw, -300vh);
+        top: var(--edge-clamp-y-g2);
+        left: var(--edge-clamp-x-g2);
     }
     &.TRGiant2 {
-        top: clamp(-120vh, -175vh, -175vh);
-        right: clamp(-300vw, -150vw, -300vh);
+        top: var(--edge-clamp-y-g2);
+        right: var(--edge-clamp-x-g2);
     }
     &.BLGiant2 {
-        bottom: clamp(-120vh, -175vh, -175vh);
-        left: clamp(-300vw, -150vw, -300vh);
+        bottom: var(--edge-clamp-y-g2);
+        left: var(--edge-clamp-x-g2);
     }
     &.BRGiant2 {
-        bottom: clamp(-120vh, -175vh, -175vh);
-        right: clamp(-300vw, -150vw, -300vh);
+        bottom: var(--edge-clamp-y-g2);
+        right: var(--edge-clamp-x-g2);
     }
 
     &.BLMega {

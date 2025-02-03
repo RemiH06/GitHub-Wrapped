@@ -1,5 +1,10 @@
 :root {
     --fontSize: 1.5rem;
+
+    --edge-clamp-y-g: clamp(-200vh, -175vh, -175vh);
+    --edge-clamp-x-g: clamp(-215vw, -175vw, -175vh);
+    --edge-clamp-y-g2: clamp(-120vh, -175vh, -175vh);
+    --edge-clamp-x-g2: clamp(-300vw, -150vw, -300vh);
 }
 
 /*
