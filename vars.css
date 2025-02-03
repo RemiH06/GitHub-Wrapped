@@ -1,0 +1,9 @@
+:root {
+    --fontSize: 1.5rem;
+}
+
+/*
+Define dentro de root todas las variables que quieras
+Usa @import url('./vars.css'); cuando crees un nuevo archivo css para poder usar esas variables.
+Ya añadi la importacion a index.css
+*/
