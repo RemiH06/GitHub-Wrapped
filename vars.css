@@ -1,14 +1,17 @@
 :root {
     --fontSize: 1.5rem;
 
+    --tl-y: -45vh;
+    --tl-x: -45vw;
+
     --edge-clamp-y-g: clamp(-200vh, -175vh, -175vh);
     --edge-clamp-x-g: clamp(-215vw, -175vw, -175vh);
     --edge-clamp-y-g2: clamp(-120vh, -175vh, -175vh);
     --edge-clamp-x-g2: clamp(-300vw, -150vw, -300vh);
-}
 
-/*
-Define dentro de root todas las variables que quieras
-Usa @import url('./vars.css'); cuando crees un nuevo archivo css para poder usar esas variables.
-Ya añadi la importacion a index.css
-*/
+    --giant-min: 600px;
+    --giant-max: 1800px;
+
+    --giant2-min: 600px;
+    --giant2-max: 3000px;
+}

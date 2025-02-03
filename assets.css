@@ -44,18 +44,18 @@
     &.giant {
         width: 300vw;
         height: 300vh;
-        min-width: 600px;
-        min-height: 600px;
-        max-width: 1800px;
-        max-height: 1800px;
+        min-width: var(--giant-min);
+        min-height: var(--giant-min);
+        max-width: var(--giant-max);
+        max-height: var(--giant-max);
     }
     &.giant2 {
         width: 300vw;
         height: 300vh;
-        min-width: 600px;
-        min-height: 600px;
-        max-width: 3000px;
-        max-height: 3000px;
+        min-width: var(--giant2-min);
+        min-height: var(--giant2-min);
+        max-width: var(--giant2-max);
+        max-height: var(--giant2-max);
     }
     &.mega {
         width: 600vw;
@@ -91,20 +91,20 @@
     }
 
     &.TL {
-        top: -45vh;
-        left: -45vw;
+        top: var(--tl-y);
+        left: var(--tl-x);
     }
     &.TR {
-        top: -45vh;
-        right: -45vw;
+        top: var(--tl-y);
+        right: var(--tl-x);
     }
     &.BL {
-        bottom: -45vh;
-        left: -45vw;
+        bottom: var(--tl-y);
+        left: var(--tl-x);
     }
     &.BR {
-        bottom: -45vh;
-        right: -45vw;
+        bottom: var(--tl-y);
+        right: var(--tl-x);
     }
     
     &.TLGiant {
