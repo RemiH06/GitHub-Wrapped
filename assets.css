@@ -44,18 +44,34 @@
     &.giant {
         width: 300vw;
         height: 300vh;
-        min-width: var(--giant-min);
+        min-width:  var(--giant-min);
         min-height: var(--giant-min);
-        max-width: var(--giant-max);
+        max-width:  var(--giant-max);
         max-height: var(--giant-max);
     }
     &.giant2 {
         width: 300vw;
         height: 300vh;
-        min-width: var(--giant2-min);
+        min-width:  var(--giant2-min);
         min-height: var(--giant2-min);
-        max-width: var(--giant2-max);
+        max-width:  var(--giant2-max);
         max-height: var(--giant2-max);
+    }
+    &.giant3 {
+        width: 100vw;
+        height: 300vh;
+        min-width:  var(--giant3-min);
+        min-height: var(--giant3-min);
+        max-width:  var(--giant3-max);
+        max-height: var(--giant3-max);
+    }
+    &.giant4 {
+        width: 300vw;
+        height: 100vh;
+        min-width:  var(--giant4-min);
+        min-height: var(--giant4-min);
+        max-width:  var(--giant4-max);
+        max-height: var(--giant4-max);
     }
     &.mega {
         width: 600vw;
@@ -83,61 +99,79 @@
     &.d-60 {
         transform: rotate(-60deg);
     }
+    &.d90 {
+        transform: rotate(90deg);
+    }
+    &.d-90 {
+        transform: rotate(-90deg);
+    }
     &.d135 {
         transform: rotate(135deg);
     }
     &.d-135 {
         transform: rotate(-135deg);
     }
+    &.d180 {
+        transform: rotate(180deg);
+    }
 
     &.TL {
-        top: var(--tl-y);
-        left: var(--tl-x);
+        top:    var(--tl-y);
+        left:   var(--tl-x);
     }
     &.TR {
-        top: var(--tl-y);
-        right: var(--tl-x);
+        top:    var(--tl-y);
+        right:  var(--tl-x);
     }
     &.BL {
         bottom: var(--tl-y);
-        left: var(--tl-x);
+        left:   var(--tl-x);
     }
     &.BR {
         bottom: var(--tl-y);
-        right: var(--tl-x);
+        right:  var(--tl-x);
+    }
+    
+    &.RBorder {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 15%;
+        object-fit: cover;
     }
     
     &.TLGiant {
-        top: var(--edge-clamp-y-g);
-        left: var(--edge-clamp-x-g);
+        top:    var(--edge-clamp-y-g);
+        left:   var(--edge-clamp-x-g);
     }
     &.TRGiant {
-        top: var(--edge-clamp-y-g);
-        right: var(--edge-clamp-x-g);
+        top:    var(--edge-clamp-y-g);
+        right:  var(--edge-clamp-x-g);
     }
     &.BLGiant {
         bottom: var(--edge-clamp-y-g);
-        left: var(--edge-clamp-x-g);
+        left:   var(--edge-clamp-x-g);
     }
     &.BRGiant {
         bottom: var(--edge-clamp-y-g);
-        right: var(--edge-clamp-x-g);
+        right:  var(--edge-clamp-x-g);
     }
     &.TLGiant2 {
-        top: var(--edge-clamp-y-g2);
-        left: var(--edge-clamp-x-g2);
+        top:    var(--edge-clamp-y-g2);
+        left:   var(--edge-clamp-x-g2);
     }
     &.TRGiant2 {
-        top: var(--edge-clamp-y-g2);
-        right: var(--edge-clamp-x-g2);
+        top:    var(--edge-clamp-y-g2);
+        right:  var(--edge-clamp-x-g2);
     }
     &.BLGiant2 {
         bottom: var(--edge-clamp-y-g2);
-        left: var(--edge-clamp-x-g2);
+        left:   var(--edge-clamp-x-g2);
     }
     &.BRGiant2 {
         bottom: var(--edge-clamp-y-g2);
-        right: var(--edge-clamp-x-g2);
+        right:  var(--edge-clamp-x-g2);
     }
 
     &.BLMega {
