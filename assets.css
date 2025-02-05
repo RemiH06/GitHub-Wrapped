@@ -16,11 +16,27 @@
         filter: hue-rotate(360deg) brightness(0.8) saturate(0.6);
     }
 }
+@keyframes reverseColor {
+    100% {
+        filter: hue-rotate(0deg) brightness(0.8) saturate(0.6);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(0.6) saturate(0.6);
+    }
+    0% {
+        filter: hue-rotate(360deg) brightness(0.8) saturate(0.6);
+    }
+}
 
 .svg {
     position: absolute;
     animation: changeColor 10s infinite;
+    
 
+
+    &.reverseColor {
+        animation: reverseColor 10s infinite
+    }
 
 
     &.mini {
@@ -42,38 +58,6 @@
     &.jumbo {
         width: 100vw;
         height: 100vh;
-    }
-    &.giant {
-        width: 300vw;
-        height: 300vh;
-        min-width:  var(--giant-min);
-        min-height: var(--giant-min);
-        max-width:  var(--giant-max);
-        max-height: var(--giant-max);
-    }
-    &.giant2 {
-        width: 300vw;
-        height: 300vh;
-        min-width:  var(--giant2-min);
-        min-height: var(--giant2-min);
-        max-width:  var(--giant2-max);
-        max-height: var(--giant2-max);
-    }
-    &.giant3 {
-        width: 100vw;
-        height: 300vh;
-        min-width:  var(--giant3-min);
-        min-height: var(--giant3-min);
-        max-width:  var(--giant3-max);
-        max-height: var(--giant3-max);
-    }
-    &.giant4 {
-        width: 300vw;
-        height: 100vh;
-        min-width:  var(--giant4-min);
-        min-height: var(--giant4-min);
-        max-width:  var(--giant4-max);
-        max-height: var(--giant4-max);
     }
     &.mega {
         width: 600vw;
@@ -154,6 +138,39 @@
         object-fit: cover;
     }
 
+    &.TLBorder {
+        position: absolute;
+        top:    var(--corner3);
+        left:   var(--corner2);
+        height: var(--border1);
+        width: var(--border2);
+        object-fit: cover;
+    }
+    &.TRBorder {
+        position: absolute;
+        top:    var(--corner3);
+        right:  var(--corner2);
+        height: var(--border1);
+        width: var(--border2);
+        object-fit: cover;
+    }
+    &.BLBorder {
+        position: absolute;
+        bottom: var(--corner3);
+        left:   var(--corner2);
+        height: var(--border1);
+        width: var(--border2);
+        object-fit: cover;
+    }
+    &.BRBorder {
+        position: absolute;
+        bottom: var(--corner3);
+        right:  var(--corner2);
+        height: var(--border1);
+        width: var(--border2);
+        object-fit: cover;
+    }
+
     &.TLBig {
         top:    var(--corner1);
         left:   var(--corner1);
@@ -186,39 +203,6 @@
     &.BRJumbo {
         bottom: var(--tl-y);
         right:  var(--tl-x);
-    }
-    
-    &.TLGiant {
-        top:    var(--edge-clamp-y-g);
-        left:   var(--edge-clamp-x-g);
-    }
-    &.TRGiant {
-        top:    var(--edge-clamp-y-g);
-        right:  var(--edge-clamp-x-g);
-    }
-    &.BLGiant {
-        bottom: var(--edge-clamp-y-g);
-        left:   var(--edge-clamp-x-g);
-    }
-    &.BRGiant {
-        bottom: var(--edge-clamp-y-g);
-        right:  var(--edge-clamp-x-g);
-    }
-    &.TLGiant2 {
-        top:    var(--edge-clamp-y-g2);
-        left:   var(--edge-clamp-x-g2);
-    }
-    &.TRGiant2 {
-        top:    var(--edge-clamp-y-g2);
-        right:  var(--edge-clamp-x-g2);
-    }
-    &.BLGiant2 {
-        bottom: var(--edge-clamp-y-g2);
-        left:   var(--edge-clamp-x-g2);
-    }
-    &.BRGiant2 {
-        bottom: var(--edge-clamp-y-g2);
-        right:  var(--edge-clamp-x-g2);
     }
 
     &.BLMega {
