@@ -21,6 +21,8 @@
     position: absolute;
     animation: changeColor 10s infinite;
 
+
+
     &.mini {
         width: 20vw;
         height: 20vh;
@@ -34,8 +36,8 @@
         height: 200vh;
     }
     &.big {
-        width: 350vw;
-        height: 350vh;
+        width: 50%;
+        height: 50%;
     }
     &.jumbo {
         width: 100vw;
@@ -78,6 +80,8 @@
         height: 600vh;
     }
 
+
+
     &.d10 {
         transform: rotate(10deg);
     }
@@ -115,23 +119,16 @@
         transform: rotate(180deg);
     }
 
-    &.TL {
-        top:    var(--tl-y);
-        left:   var(--tl-x);
-    }
-    &.TR {
-        top:    var(--tl-y);
-        right:  var(--tl-x);
-    }
-    &.BL {
-        bottom: var(--tl-y);
-        left:   var(--tl-x);
-    }
-    &.BR {
-        bottom: var(--tl-y);
-        right:  var(--tl-x);
-    }
+
     
+    &.TBorder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 15%;
+        width: 100%;
+        object-fit: cover;
+    }
     &.RBorder {
         position: absolute;
         top: 0;
@@ -139,6 +136,56 @@
         height: 100%;
         width: 15%;
         object-fit: cover;
+    }
+    &.LBorder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 15%;
+        object-fit: cover;
+    }
+    &.BBorder {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 15%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &.TLBig {
+        top:    var(--corner1);
+        left:   var(--corner1);
+    }
+    &.TRBig {
+        top:    var(--corner1);
+        right:  var(--corner1);
+    }
+    &.BLBig {
+        bottom: var(--corner1);
+        left:   var(--corner1);
+    }
+    &.BRBig {
+        bottom: var(--corner1);
+        right:  var(--corner1);
+    }
+
+    &.TLJumbo {
+        top:    var(--tl-y);
+        left:   var(--tl-x);
+    }
+    &.TRJumbo {
+        top:    var(--tl-y);
+        right:  var(--tl-x);
+    }
+    &.BLJumbo {
+        bottom: var(--tl-y);
+        left:   var(--tl-x);
+    }
+    &.BRJumbo {
+        bottom: var(--tl-y);
+        right:  var(--tl-x);
     }
     
     &.TLGiant {
