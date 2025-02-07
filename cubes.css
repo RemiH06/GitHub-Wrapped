@@ -1,0 +1,91 @@
+.scene {
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    perspective: 1500px;
+    position: relative;
+}
+
+.cube {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: spin 5s infinite linear, move 10s linear forwards;
+}
+
+.cube div {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    opacity: 0.5;
+}
+
+.cube div:nth-child(1) { transform: rotateY(  0deg) translateZ(25px); }
+.cube div:nth-child(2) { transform: rotateY( 90deg) translateZ(25px); }
+.cube div:nth-child(3) { transform: rotateY(180deg) translateZ(25px); }
+.cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(25px); }
+.cube div:nth-child(5) { transform: rotateX( 90deg) translateZ(25px); }
+.cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(25px); }
+
+.inner-cube {
+    width: 30px;
+    height: 30px;
+    transform-style: preserve-3d;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    animation: spin-inner 3s infinite linear reverse;
+}
+
+.inner-cube div {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+.inner-cube div:nth-child(1) { transform: rotateY(  0deg) translateZ(15px); }
+.inner-cube div:nth-child(2) { transform: rotateY( 90deg) translateZ(15px); }
+.inner-cube div:nth-child(3) { transform: rotateY(180deg) translateZ(15px); }
+.inner-cube div:nth-child(4) { transform: rotateY(-90deg) translateZ(15px); }
+.inner-cube div:nth-child(5) { transform: rotateX( 90deg) translateZ(15px); }
+.inner-cube div:nth-child(6) { transform: rotateX(-90deg) translateZ(15px); }
+
+@keyframes spin {
+    from { transform: rotateX(0deg) rotateY(0deg); }
+    to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes spin-inner {
+    from { transform: rotateX(0deg) rotateY(0deg); }
+    to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes move {
+    from { transform: translate(0, 0) rotateX(45deg) rotateY(45deg); }
+    to { transform: translate(calc(100vw * var(--x-dir)), calc(100vh * var(--y-dir))) rotateX(405deg) rotateY(405deg); }
+}
+
+@keyframes explode {
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: currentColor;
+    opacity: 0.9;
+    transform-origin: center;
+}
+
+@keyframes particle-explosion {
+    to {
+        transform: translate(var(--dx), var(--dy)) scale(0.1);
+        opacity: 0;
+    }
+}

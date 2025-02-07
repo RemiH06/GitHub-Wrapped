@@ -1,0 +1,85 @@
+.icoscene {
+    width: 100vw;
+    z-index: 5;
+    height: 100vh;
+    perspective: 1500px;
+    position: sticky;
+}
+
+.bg {
+    z-index: 50;
+}
+
+.icosahedron {
+    width: 0;
+    height: 0;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: spin20 5s infinite linear, move20 10s linear forwards;
+}
+
+.icosahedron div {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 43.3px solid rgba(255, 255, 255, 0.5);
+    opacity: 0.5;
+}
+
+/* Caras triangulares del icosaedro */
+.icosahedron div:nth-child(1)  { transform: rotateY(0deg) rotateX(52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(2)  { transform: rotateY(72deg) rotateX(52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(3)  { transform: rotateY(144deg) rotateX(52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(4)  { transform: rotateY(216deg) rotateX(52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(5)  { transform: rotateY(288deg) rotateX(52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(6)  { transform: rotateY(36deg) rotateX(-52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(7)  { transform: rotateY(108deg) rotateX(-52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(8)  { transform: rotateY(180deg) rotateX(-52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(9)  { transform: rotateY(252deg) rotateX(-52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(10) { transform: rotateY(324deg) rotateX(-52.6226deg) translateZ(25px); }
+.icosahedron div:nth-child(11) { transform: rotateY(0deg) rotateX(180deg) translateZ(50px); }
+.icosahedron div:nth-child(12) { transform: rotateY(72deg) rotateX(180deg) translateZ(50px); }
+.icosahedron div:nth-child(13) { transform: rotateY(144deg) rotateX(180deg) translateZ(50px); }
+.icosahedron div:nth-child(14) { transform: rotateY(216deg) rotateX(180deg) translateZ(50px); }
+.icosahedron div:nth-child(15) { transform: rotateY(288deg) rotateX(180deg) translateZ(50px); }
+.icosahedron div:nth-child(16) { transform: rotateY(36deg) rotateX(116.565deg) translateZ(25px); }
+.icosahedron div:nth-child(17) { transform: rotateY(108deg) rotateX(116.565deg) translateZ(25px); }
+.icosahedron div:nth-child(18) { transform: rotateY(180deg) rotateX(116.565deg) translateZ(25px); }
+.icosahedron div:nth-child(19) { transform: rotateY(252deg) rotateX(116.565deg) translateZ(25px); }
+.icosahedron div:nth-child(20) { transform: rotateY(324deg) rotateX(116.565deg) translateZ(25px); }
+
+@keyframes spin20 {
+    from { transform: rotateX(0deg) rotateY(0deg); }
+    to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes move20 {
+    from { transform: translate(0, 0) rotateX(45deg) rotateY(45deg); }
+    to { transform: translate(calc(100vw * var(--x-dir)), calc(100vh * var(--y-dir))) rotateX(405deg) rotateY(405deg); }
+}
+
+@keyframes explode20 {
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.particle20 {
+    position: absolute;
+    width: 20px; /* Aumenta el tamaño de las partículas */
+    height: 20px; /* Aumenta el tamaño de las partículas */
+    background-color: currentColor;
+    opacity: 0.8; /* Reduce la opacidad */
+    transform-origin: center;
+    border-radius: 50%;
+}
+
+@keyframes particle-explosion20 {
+    to {
+        transform: translate(var(--dx), var(--dy)) scale(0.5); /* Aumenta el alcance de la explosión */
+        opacity: 0;
+    }
+}

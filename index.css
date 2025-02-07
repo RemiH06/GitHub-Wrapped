@@ -83,3 +83,7 @@ body {
     font-family: 'Hubot Sans', sans-serif;
     bottom: 30px;
 }
+
+.layer1 {
+    z-index: 10;
+}
