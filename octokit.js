@@ -31,7 +31,7 @@ if (boton) {
 
         console.log("Previo al try")
         try {
-            const user = "HectorH06"//getUsername();
+            const user = getUsername();//"HectorH06"
             const year = getYear();
             console.log(`Usuario: ${user}`);
             console.log(`Año: ${year}`);
