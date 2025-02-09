@@ -27,6 +27,62 @@
         filter: hue-rotate(360deg) brightness(0.8) saturate(0.6);
     }
 }
+@keyframes delayColor1 {
+    50% {
+        filter: hue-rotate(180deg) brightness(0.8) saturate(0.6);
+    }
+    100% {
+        filter: hue-rotate(360deg) brightness(0.6) saturate(0.6);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(0.8) saturate(0.6);
+    }
+    0% {
+        filter: hue-rotate(0deg) brightness(0.8) saturate(0.6);
+    }
+}
+@keyframes delayColor2 {
+    50% {
+        filter: hue-rotate(180deg) brightness(1) saturate(0.8);
+    }
+    0% {
+        filter: hue-rotate(0deg) brightness(1) saturate(0.8);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(1) saturate(0.8);
+    }
+    100% {
+        filter: hue-rotate(360deg) brightness(1) saturate(0.8);
+    }
+}
+@keyframes delayColor3 {
+    50% {
+        filter: hue-rotate(180deg) brightness(0.8) saturate(0.6);
+    }
+    100% {
+        filter: hue-rotate(0deg) brightness(0.6) saturate(0.6);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(0.8) saturate(0.6);
+    }
+    0% {
+        filter: hue-rotate(360deg) brightness(0.8) saturate(0.6);
+    }
+}
+@keyframes delayColor4 {
+    50% {
+        filter: hue-rotate(180deg) brightness(1) saturate(0.8);
+    }
+    0% {
+        filter: hue-rotate(360deg) brightness(1) saturate(0.8);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(1) saturate(0.8);
+    }
+    100% {
+        filter: hue-rotate(0deg) brightness(1) saturate(0.8);
+    }
+}
 
 .svg {
     position: absolute;
@@ -36,6 +92,18 @@
 
     &.reverseColor {
         animation: reverseColor 10s infinite
+    }
+    &.delayColor1 {
+        animation: delayColor1 10s infinite
+    }
+    &.delayColor2 {
+        animation: delayColor2 10s infinite
+    }
+    &.delayColor3 {
+        animation: delayColor3 10s infinite
+    }
+    &.delayColor4 {
+        animation: delayColor4 10s infinite
     }
 
 
@@ -65,7 +133,7 @@
     }
 
 
-
+    
     &.d10 {
         transform: rotate(10deg);
     }
@@ -101,6 +169,128 @@
     }
     &.d180 {
         transform: rotate(180deg);
+    }
+
+    &.d177 {
+        transform: rotate(177deg);
+    }
+    &.d174 {
+        transform: rotate(174deg);
+    }
+    &.d171 {
+        transform: rotate(171deg);
+    }
+    &.d168 {
+        transform: rotate(168deg);
+    }
+    &.d165 {
+        transform: rotate(165deg);
+    }
+    &.d162 {
+        transform: rotate(162deg);
+    }
+    &.d159 {
+        transform: rotate(159deg);
+    }
+    &.d156 {
+        transform: rotate(156deg);
+    }
+    &.d153 {
+        transform: rotate(153deg);
+    }
+    &.d150 {
+        transform: rotate(150deg);
+    }
+    &.d147 {
+        transform: rotate(147deg);
+    }
+    &.d144 {
+        transform: rotate(144deg);
+    }
+    &.d141 {
+        transform: rotate(141deg);
+    }
+    &.d138 {
+        transform: rotate(138deg);
+    }
+    &.d135 {
+        transform: rotate(135deg);
+    }
+    &.d132 {
+        transform: rotate(132deg);
+    }
+    &.d129 {
+        transform: rotate(129deg);
+    }
+    &.d126 {
+        transform: rotate(126deg);
+    }
+    &.d123 {
+        transform: rotate(123deg);
+    }
+    &.d120 {
+        transform: rotate(120deg);
+    }
+
+    &.d183 {
+        transform: rotate(183deg);
+    }
+    &.d186 {
+        transform: rotate(186deg);
+    }
+    &.d189 {
+        transform: rotate(189deg);
+    }
+    &.d192 {
+        transform: rotate(192deg);
+    }
+    &.d195 {
+        transform: rotate(195deg);
+    }
+    &.d198 {
+        transform: rotate(198deg);
+    }
+    &.d201 {
+        transform: rotate(201deg);
+    }
+    &.d204 {
+        transform: rotate(204deg);
+    }
+    &.d207 {
+        transform: rotate(207deg);
+    }
+    &.d210 {
+        transform: rotate(210deg);
+    }
+    &.d213 {
+        transform: rotate(213deg);
+    }
+    &.d216 {
+        transform: rotate(216deg);
+    }
+    &.d219 {
+        transform: rotate(219deg);
+    }
+    &.d222 {
+        transform: rotate(222deg);
+    }
+    &.d225 {
+        transform: rotate(225deg);
+    }
+    &.d228 {
+        transform: rotate(228deg);
+    }
+    &.d231 {
+        transform: rotate(231deg);
+    }
+    &.d234 {
+        transform: rotate(234deg);
+    }
+    &.d237 {
+        transform: rotate(237deg);
+    }
+    &.d240 {
+        transform: rotate(240deg);
     }
 
 
@@ -209,4 +399,24 @@
         bottom: -510vh;
         left: -250vw;
     }
+
+    .stalagmite {
+        width: 35%;
+        height: 20%;
+        transform-origin: bottom;
+    }
+}
+
+.stalagmite-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%; /* Altura de las estalagmitas */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 columnas para 6 estalagmitas */
+    gap: 10px; /* Espacio entre estalagmitas */
+    justify-items: center;
+    align-items: end;
+    padding: 0 10px; /* Padding para evitar que toquen los bordes */
 }
