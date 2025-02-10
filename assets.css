@@ -85,19 +85,31 @@
 }
 @keyframes colorblind {
     0% {
-        filter: hue-rotate(0deg) brightness(20) saturate(0.3);
+        filter: hue-rotate(0deg) brightness(6) saturate(0.4);
+    }
+    12.5% {
+        filter: hue-rotate(45deg) brightness(6) saturate(0.4);
     }
     25% {
-        filter: hue-rotate(90deg) brightness(20) saturate(0.3);
+        filter: hue-rotate(90deg) brightness(6) saturate(0.4);
+    }
+    37.5% {
+        filter: hue-rotate(135deg) brightness(6) saturate(0.4);
     }
     50% {
-        filter: hue-rotate(180deg) brightness(20) saturate(0.3);
+        filter: hue-rotate(180deg) brightness(6) saturate(0.4);
+    }
+    62.5% {
+        filter: hue-rotate(225deg) brightness(6) saturate(0.4);
     }
     75% {
-        filter: hue-rotate(270deg) brightness(20) saturate(0.3);
+        filter: hue-rotate(270deg) brightness(6) saturate(0.4);
+    }
+    87.5% {
+        filter: hue-rotate(315deg) brightness(6) saturate(0.4);
     }
     100% {
-        filter: hue-rotate(360deg) brightness(20) saturate(0.3);
+        filter: hue-rotate(360deg) brightness(6) saturate(0.4);
     }
 }
 
@@ -639,7 +651,7 @@
     animation: reverseColor 25s infinite;
 }
 .colorblind {
-    animation: colorblind 10s infinite;
+    animation: colorblind 20s infinite;
 }
 .delayColor1 {
     animation: delayColor1 15s infinite;
