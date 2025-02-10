@@ -103,28 +103,7 @@
 
 .svg {
     position: absolute;
-    /*animation: changeColor 25s infinite;
-    */
-
-
-    &.reverseColor {
-        animation: reverseColor 25s infinite;
-    }
-    &.colorblind {
-        animation: colorblind 10s infinite;
-    }
-    &.delayColor1 {
-        animation: delayColor1 15s infinite;
-    }
-    &.delayColor2 {
-        animation: delayColor2 15s infinite;
-    }
-    &.delayColor3 {
-        animation: delayColor3 15s infinite;
-    }
-    &.delayColor4 {
-        animation: delayColor4 15s infinite;
-    }
+    animation: changeColor 25s infinite;
 
 
 
@@ -653,6 +632,29 @@
     align-items: end;
     padding: 0 10px; /* Padding para evitar que toquen los bordes */
 }
+
+
+
+.reverseColor {
+    animation: reverseColor 25s infinite;
+}
+.colorblind {
+    animation: colorblind 10s infinite;
+}
+.delayColor1 {
+    animation: delayColor1 15s infinite;
+}
+.delayColor2 {
+    animation: delayColor2 15s infinite;
+}
+.delayColor3 {
+    animation: delayColor3 15s infinite;
+}
+.delayColor4 {
+    animation: delayColor4 15s infinite;
+}
+
+
 
 .saturate0 { filter: saturate(0); }
 .brightness20 { filter: brightness(20); }
