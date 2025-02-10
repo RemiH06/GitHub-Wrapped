@@ -10,4 +10,7 @@
 
     --border1: 180%;
     --border2: 125%;
+
+    --lowborderY: -25%;
+    --lowborderX: -10%;
 }

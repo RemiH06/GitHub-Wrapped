@@ -83,28 +83,49 @@
         filter: hue-rotate(0deg) brightness(1) saturate(0.8);
     }
 }
+@keyframes colorblind {
+    0% {
+        filter: hue-rotate(0deg) brightness(20) saturate(0.3);
+    }
+    25% {
+        filter: hue-rotate(90deg) brightness(20) saturate(0.3);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(20) saturate(0.3);
+    }
+    75% {
+        filter: hue-rotate(270deg) brightness(20) saturate(0.3);
+    }
+    100% {
+        filter: hue-rotate(360deg) brightness(20) saturate(0.3);
+    }
+}
 
 .svg {
     position: absolute;
-    animation: changeColor 10s infinite;
-    
+    /*animation: changeColor 25s infinite;
+    */
 
 
     &.reverseColor {
-        animation: reverseColor 10s infinite
+        animation: reverseColor 25s infinite;
+    }
+    &.colorblind {
+        animation: colorblind 10s infinite;
     }
     &.delayColor1 {
-        animation: delayColor1 10s infinite
+        animation: delayColor1 15s infinite;
     }
     &.delayColor2 {
-        animation: delayColor2 10s infinite
+        animation: delayColor2 15s infinite;
     }
     &.delayColor3 {
-        animation: delayColor3 10s infinite
+        animation: delayColor3 15s infinite;
     }
     &.delayColor4 {
-        animation: delayColor4 10s infinite
+        animation: delayColor4 15s infinite;
     }
+
 
 
     &.mini {
@@ -126,6 +147,10 @@
     &.jumbo {
         width: 100vw;
         height: 100vh;
+    }
+    &.jumbo2 {
+        width: 92vw;
+        height: 92vh;
     }
     &.mega {
         width: 600vw;
@@ -169,6 +194,181 @@
     }
     &.d180 {
         transform: rotate(180deg);
+    }
+
+    .d0 {
+        transform: rotate(0deg);
+    }
+    .d6 {
+        transform: rotate(6deg);
+    }
+    .d12 {
+        transform: rotate(12deg);
+    }
+    .d18 {
+        transform: rotate(18deg);
+    }
+    .d24 {
+        transform: rotate(24deg);
+    }
+    .d36 {
+        transform: rotate(36deg);
+    }
+    .d42 {
+        transform: rotate(42deg);
+    }
+    .d48 {
+        transform: rotate(48deg);
+    }
+    .d54 {
+        transform: rotate(54deg);
+    }
+    .d66 {
+        transform: rotate(66deg);
+    }
+    .d72 {
+        transform: rotate(72deg);
+    }
+    .d78 {
+        transform: rotate(78deg);
+    }
+    .d84 {
+        transform: rotate(84deg);
+    }
+    .d90 {
+        transform: rotate(90deg);
+    }
+    .d96 {
+        transform: rotate(96deg);
+    }
+    .d102 {
+        transform: rotate(102deg);
+    }
+    .d108 {
+        transform: rotate(108deg);
+    }
+    .d114 {
+        transform: rotate(114deg);
+    }
+    .d120 {
+        transform: rotate(120deg);
+    }
+    .d126 {
+        transform: rotate(126deg);
+    }
+    .d132 {
+        transform: rotate(132deg);
+    }
+    .d138 {
+        transform: rotate(138deg);
+    }
+    .d144 {
+        transform: rotate(144deg);
+    }
+    .d150 {
+        transform: rotate(150deg);
+    }
+    .d156 {
+        transform: rotate(156deg);
+    }
+    .d162 {
+        transform: rotate(162deg);
+    }
+    .d168 {
+        transform: rotate(168deg);
+    }
+    .d174 {
+        transform: rotate(174deg);
+    }
+    .d186 {
+        transform: rotate(186deg);
+    }
+    .d192 {
+        transform: rotate(192deg);
+    }
+    .d198 {
+        transform: rotate(198deg);
+    }
+    .d204 {
+        transform: rotate(204deg);
+    }
+    .d210 {
+        transform: rotate(210deg);
+    }
+    .d216 {
+        transform: rotate(216deg);
+    }
+    .d222 {
+        transform: rotate(222deg);
+    }
+    .d228 {
+        transform: rotate(228deg);
+    }
+    .d234 {
+        transform: rotate(234deg);
+    }
+    .d240 {
+        transform: rotate(240deg);
+    }
+    .d246 {
+        transform: rotate(246deg);
+    }
+    .d252 {
+        transform: rotate(252deg);
+    }
+    .d258 {
+        transform: rotate(258deg);
+    }
+    .d264 {
+        transform: rotate(264deg);
+    }
+    .d270 {
+        transform: rotate(270deg);
+    }
+    .d276 {
+        transform: rotate(276deg);
+    }
+    .d282 {
+        transform: rotate(282deg);
+    }
+    .d288 {
+        transform: rotate(288deg);
+    }
+    .d294 {
+        transform: rotate(294deg);
+    }
+    .d300 {
+        transform: rotate(300deg);
+    }
+    .d306 {
+        transform: rotate(306deg);
+    }
+    .d312 {
+        transform: rotate(312deg);
+    }
+    .d318 {
+        transform: rotate(318deg);
+    }
+    .d324 {
+        transform: rotate(324deg);
+    }
+    .d330 {
+        transform: rotate(330deg);
+    }
+    .d336 {
+        transform: rotate(336deg);
+    }
+    .d342 {
+        transform: rotate(342deg);
+    }
+    .d348 {
+        transform: rotate(348deg);
+    }
+    .d354 {
+        transform: rotate(354deg);
+    }
+    .d360 {
+        transform: rotate(360deg);
     }
 
     &.d177 {
@@ -328,6 +528,23 @@
         object-fit: cover;
     }
 
+    &.LowRBorder {
+        position: absolute;
+        bottom:   var(--lowborderY);
+        right:    var(--lowborderX);
+        height: 100%;
+        width: 15%;
+        object-fit: cover;
+    }
+    &.LowLBorder {
+        position: absolute;
+        bottom:   var(--lowborderY);
+        left:     var(--lowborderX);
+        height: 100%;
+        width: 15%;
+        object-fit: cover;
+    }
+
     &.TLBorder {
         position: absolute;
         top:    var(--corner3);
@@ -400,6 +617,22 @@
         left: -250vw;
     }
 
+    &.bannerbg {
+        align-self: center;
+        bottom: 5%;
+        left: 0.75%;
+        right: 0;
+    }
+    &.banner {
+        fill: aliceblue;
+        align-self: center;
+        bottom: 9%;
+        left: 4.75%;
+        right: 0;
+        animation: none;
+        
+    }
+
     .stalagmite {
         width: 35%;
         height: 20%;
@@ -420,3 +653,14 @@
     align-items: end;
     padding: 0 10px; /* Padding para evitar que toquen los bordes */
 }
+
+.saturate0 { filter: saturate(0); }
+.brightness20 { filter: brightness(20); }
+
+.grayscale { filter: grayscale(100%); }
+.contrast { filter: contrast(160%); }
+.blur { filter: blur(3px); }
+.invert { filter: invert(100%); }
+.sepia { filter: sepia(100%); }
+.huerotate { filter: hue-rotate(180deg); }
+.rss.opacity { filter: opacity(50%); }
