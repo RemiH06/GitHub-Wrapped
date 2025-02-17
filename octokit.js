@@ -121,6 +121,10 @@ function renderCommitGrid(commitsPerDay, year) {
     gridContainer.innerHTML = ""; // Limpiar antes de renderizar
     gridContainer.style.display = "grid";
     gridContainer.style.gridTemplateColumns = "repeat(52, 10px)";
+    gridContainer.style.gridTemplateRows = "repeat(7, 10px)"; 
+
+    // Llena las columnas antes que las filas, arreglando el error de que los commits no se vean por semana
+    gridContainer.style.gridAutoFlow = "column"; 
     gridContainer.style.gridGap = "2px";
     gridContainer.style.padding = "10px";
 
@@ -150,6 +154,7 @@ function renderCommitGrid(commitsPerDay, year) {
         currentDate.setDate(currentDate.getDate() + 1);
     }
 }
+
 
 
 async function getFollowers(usuario) {
