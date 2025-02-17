@@ -42,6 +42,7 @@ if (boton) {
             const reposFiltered = await filterRepos(user, repos, year)
             await Promise.all([
                 getCommits(user, repos, year),
+                getCommitsPerDay(user, repos, year),
                 getFollowers(user),
                 getFollowing(user),
                 getTopCollaborator(user, reposFiltered),
@@ -92,6 +93,53 @@ async function filterRepos(usuario, repos, year) {
 }
 
 async function getCommits(usuario, repos, year) {
+    let totalCommits = 0;
+    let reposWithCommits = {};
+
+    try {
+        for (const repo of repos) {
+            const commits = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+                owner: usuario, repo: repo.name, per_page: 100
+            });
+
+            // Filtrar commits de este año
+            const commitsThisYear = commits.data.filter(commit => {
+                //console.log("Commit: ", commit)
+                const commitDate = new Date(commit.commit.author.date);
+                //console.log("Fechas comparacion: ", commitDate.getFullYear(), year)
+                return commitDate.getFullYear() == year;
+            });
+
+            //console.log(`Commits en ${repo.name} este año: `, commitsThisYear);
+
+            const commitCount = commitsThisYear.length;
+            totalCommits += commitCount;
+            reposWithCommits[repo.name] = commitCount;
+        }
+
+        const sortedRepos = Object.entries(reposWithCommits).sort((a, b) => b[1] - a[1]);
+        const topRepo = sortedRepos[0];
+        const top5Repos = sortedRepos.slice(0, 5);
+
+        document.getElementById("totalCommits").textContent =
+            `Total de commits este año: ${totalCommits}`;
+        document.getElementById("topRepo").textContent =
+            `Repo con más commits este año: ${topRepo[0]} (${topRepo[1]} commits)`;
+
+        const top5Text = top5Repos.map(([repo, commits], index) =>
+            `${index + 1}. ${repo} (${commits} commits)`).join('<br>');
+
+        document.getElementById("topRepos").innerHTML =
+            `Top 5 repos con más commits este año:<br>${top5Text}`;
+    } catch (error) {
+        console.log("Error al obtener commits: ", error);
+        document.getElementById("totalCommits").textContent = "Error al obtener commits.";
+        document.getElementById("topRepo").textContent = "Error al obtener el repo principal.";
+        document.getElementById("topRepos").textContent = "Error al obtener el top 5 de repos.";
+    }
+}
+
+async function getCommitsPerDay(usuario, repos, year) {
     let commitsPerDay = {}; // Objeto para almacenar commits por día
 
     try {
