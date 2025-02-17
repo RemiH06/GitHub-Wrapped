@@ -92,8 +92,7 @@ async function filterRepos(usuario, repos, year) {
 }
 
 async function getCommits(usuario, repos, year) {
-    let totalCommits = 0;
-    let reposWithCommits = {};
+    let commitsPerDay = {}; // Objeto para almacenar commits por día
 
     try {
         for (const repo of repos) {
@@ -101,40 +100,54 @@ async function getCommits(usuario, repos, year) {
                 owner: usuario, repo: repo.name, per_page: 100
             });
 
-            // Filtrar commits de este año
-            const commitsThisYear = commits.data.filter(commit => {
-                //console.log("Commit: ", commit)
+            for (const commit of commits.data) {
                 const commitDate = new Date(commit.commit.author.date);
-                //console.log("Fechas comparacion: ", commitDate.getFullYear(), year)
-                return commitDate.getFullYear() == year;
-            });
-
-            //console.log(`Commits en ${repo.name} este año: `, commitsThisYear);
-
-            const commitCount = commitsThisYear.length;
-            totalCommits += commitCount;
-            reposWithCommits[repo.name] = commitCount;
+                if (commitDate.getFullYear() === year) {
+                    const day = commitDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+                    commitsPerDay[day] = (commitsPerDay[day] || 0) + 1;
+                }
+            }
         }
 
-        const sortedRepos = Object.entries(reposWithCommits).sort((a, b) => b[1] - a[1]);
-        const topRepo = sortedRepos[0];
-        const top5Repos = sortedRepos.slice(0, 5);
-
-        document.getElementById("totalCommits").textContent =
-            `Total de commits este año: ${totalCommits}`;
-        document.getElementById("topRepo").textContent =
-            `Repo con más commits este año: ${topRepo[0]} (${topRepo[1]} commits)`;
-
-        const top5Text = top5Repos.map(([repo, commits], index) =>
-            `${index + 1}. ${repo} (${commits} commits)`).join('<br>');
-
-        document.getElementById("topRepos").innerHTML =
-            `Top 5 repos con más commits este año:<br>${top5Text}`;
+        renderCommitGrid(commitsPerDay, year); // Llamar a la función para dibujar la cuadrícula
     } catch (error) {
-        console.log("Error al obtener commits: ", error);
-        document.getElementById("totalCommits").textContent = "Error al obtener commits.";
-        document.getElementById("topRepo").textContent = "Error al obtener el repo principal.";
-        document.getElementById("topRepos").textContent = "Error al obtener el top 5 de repos.";
+        console.error("Error al obtener commits:", error);
+    }
+}
+
+
+function renderCommitGrid(commitsPerDay, year) {
+    const gridContainer = document.getElementById("commitGrid");
+    gridContainer.innerHTML = ""; // Limpiar antes de renderizar
+    gridContainer.style.display = "grid";
+    gridContainer.style.gridTemplateColumns = "repeat(52, 10px)";
+    gridContainer.style.gridGap = "2px";
+    gridContainer.style.padding = "10px";
+
+    const startDate = new Date(`${year}-01-01`);
+    const endDate = new Date(`${year}-12-31`);
+    let currentDate = new Date(startDate);
+
+    while (currentDate <= endDate) {
+        const dayStr = currentDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+        const commits = commitsPerDay[dayStr] || 0;
+
+        // Calcular intensidad de color (verde más intenso = más commits)
+        const colorIntensity = Math.min(255, 50 + commits * 20); // Ajusta el 20 según la cantidad de commits
+        const color = `rgb(0, ${colorIntensity}, 0)`;
+
+        // Crear el cuadro del día
+        const dayBox = document.createElement("div");
+        dayBox.style.width = "10px";
+        dayBox.style.height = "10px";
+        dayBox.style.backgroundColor = color;
+        dayBox.style.borderRadius = "2px";
+        dayBox.title = `${dayStr}: ${commits} commits`; // Tooltip al pasar el mouse
+
+        gridContainer.appendChild(dayBox);
+
+        // Avanzar al siguiente día
+        currentDate.setDate(currentDate.getDate() + 1);
     }
 }
 
