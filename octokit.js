@@ -38,8 +38,11 @@ if (boton) {
 
             //Llamar al resto de funciones para obtener sus valores
 
-            const repos = await getRepos(user)
-            const reposFiltered = await filterRepos(user, repos, year)
+            const repos = await getRepos(user);
+            const reposFiltered = await filterRepos(user, repos, year);
+
+            await getTopLanguages(user);
+
             await Promise.all([
                 getCommits(user, repos, year),
                 getCommitsPerDay(user, repos, year),
@@ -297,6 +300,44 @@ async function getActivityStreaks(usuario) {
 
     } catch (error) {
         document.getElementById("busyDay").textContent = "Error al obtener actividad.";
+    }
+}
+
+async function getTopLanguages(usuario) {
+    let languageCounts = {};
+
+    try {
+        // Obtener los repositorios del usuario
+        const repos = await getRepos(usuario);
+        
+        for (const repo of repos) {
+            // Obtener los lenguajes utilizados en cada repositorio
+            const languages = await octokit.request('GET /repos/{owner}/{repo}/languages', {
+                owner: usuario, repo: repo.name
+            });
+
+            // Sumar los lenguajes al contador
+            for (const language in languages.data) {
+                languageCounts[language] = (languageCounts[language] || 0) + 1;
+            }
+        }
+
+        // Ordenar los lenguajes por el número de veces que se encuentran en los repositorios
+        const sortedLanguages = Object.entries(languageCounts).sort((a, b) => b[1] - a[1]);
+        
+        // Obtener los 5 lenguajes más utilizados
+        const top5Languages = sortedLanguages.slice(0, 5);
+
+        // Mostrar los resultados
+        const topLanguagesText = top5Languages.map(([language, count], index) =>
+            `${index + 1}. ${language} (${count} repos)`).join('<br>');
+
+        document.getElementById("topLangs").innerHTML =
+            `Top 5 lenguajes más utilizados:<br>${topLanguagesText}`;
+
+    } catch (error) {
+        console.log("Error al obtener lenguajes: ", error);
+        document.getElementById("topLanguages").textContent = "Error al obtener los lenguajes.";
     }
 }
 
