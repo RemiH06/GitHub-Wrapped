@@ -1,4 +1,5 @@
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+import { loadPanels } from "./loadPanels.js";
 const octokit = new Octokit();
 
 //Ocultar el loader por defecto al cargar la pagina
@@ -38,6 +39,8 @@ if (boton) {
 
             //Llamar al resto de funciones para obtener sus valores
 
+            await loadPanels(11);
+
             const repos = await getRepos(user);
             const reposFiltered = await filterRepos(user, repos, year);
 
@@ -45,11 +48,11 @@ if (boton) {
 
             await Promise.all([
                 getCommits(user, repos, year),
-                /*getCommitsPerDay(user, repos, year),
+                getCommitsPerDay(user, repos, year),
                 getFollowers(user),
                 getFollowing(user),
                 getTopCollaborator(user, reposFiltered),
-                getActivityStreaks(user)*/
+                getActivityStreaks(user)
             ]);
         } catch (error) {
             console.log(loader)
