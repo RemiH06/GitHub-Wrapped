@@ -45,11 +45,11 @@ if (boton) {
 
             await Promise.all([
                 getCommits(user, repos, year),
-                getCommitsPerDay(user, repos, year),
+                /*getCommitsPerDay(user, repos, year),
                 getFollowers(user),
                 getFollowing(user),
                 getTopCollaborator(user, reposFiltered),
-                getActivityStreaks(user)
+                getActivityStreaks(user)*/
             ]);
         } catch (error) {
             console.log(loader)
