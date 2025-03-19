@@ -295,64 +295,6 @@
         }
     </script>
 
-    <!--Azufre-->
-    <!--<script>
-        const button = document.getElementById("processButton");
-        const usernameInput = document.getElementById("usernameInput");
-        const colorContainer = document.getElementById("colorContainer");
-
-        button.addEventListener("click", (event) => {
-            event.preventDefault();
-
-            const username = usernameInput.value.trim();
-            if (username) {
-                // Crea elementos temporales para que sulfur exista
-                const tempInput = document.createElement("input");
-                const tempOutput = document.createElement("div");
-                tempInput.id = "passwordInput";
-                tempOutput.id = "output";
-                tempInput.value = username;
-                document.body.appendChild(tempInput);
-                document.body.appendChild(tempOutput);
-
-                // main de sulfur
-                main();
-
-                // colores procesados
-                const outputText = tempOutput.textContent;
-                const match = outputText.match(/Valores Finales: (.+)/);
-                const colors = match ? match[1].split(", ") : [];
-
-                // elimina elementos tempo
-                tempInput.remove();
-                tempOutput.remove();
-
-                // Muestra los colores en cuadros
-                displayColors(colors);
-            } else {
-                alert("Por favor, ingresa un nombre de usuario.");
-            }
-        });
-
-        // #XXYYZZ
-        function displayColors(colors) {
-            colorContainer.innerHTML = ""; // clean
-
-            colors.forEach((color) => {
-                const colorBox = document.createElement("div");
-                colorBox.style.width = "50px";
-                colorBox.style.height = "50px";
-                colorBox.style.backgroundColor = `#${color}`;
-                colorBox.title = `#${color}`;
-                colorContainer.appendChild(colorBox);
-            });
-        }
-    </script>
--->
-    <script type="module" src="octokit.js"></script>
-    <!--Bendito Octokit-->
-    <script type="module" src="octokit.js"></script>
-
     <!--Cambio de fuente-->
     <script>
         /*const fuentes = [
@@ -372,6 +314,10 @@
     <!-- Animaciones y geométricos móviles-->
     <script src="cubitos.js"></script>
     <script src="icosa.js"></script>
+    <!--Bendito Octokit-->
+    <script type="module" src="octokit.js"></script>
+    <!--Azufre-->
+    <script src="azufre.js"></script>
 </body>
 
 </html>
