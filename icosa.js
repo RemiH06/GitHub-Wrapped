@@ -1,4 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
 const icoscene = document.querySelector('.icoscene');
+
+if (!icoscene) {
+    console.log('El elemento .icoscene no se encontró en el DOM');
+    // Opcional: intenta buscarlo más tarde o detén la ejecución
+    throw new Error('Elemento .icoscene no encontrado');
+}
 
 function getRandomColor() {
     const hue = Math.random() * 360;
@@ -72,3 +79,4 @@ function startGeneratingIcosahedrons() {
 }
 
 startGeneratingIcosahedrons();
+});
