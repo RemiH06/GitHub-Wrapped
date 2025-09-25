@@ -9,7 +9,7 @@
 ╚██████╔╝██║  ██║    ╚███╔███╔╝██║  ██║██║  ██║██║     ██║     ███████╗██████╔╝
  ╚═════╝ ╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚══════╝╚═════╝
 
-       by HectorH06 (@HectorH06) & Ethan04Munoz (@Ethan04Munoz)          version 1.1
+       by Hex (@RemiH06) & Ethan04Munoz (@Ethan04Munoz)          version 1.1
 ```
 
 ### General Description
